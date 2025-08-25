@@ -81,7 +81,7 @@ terraform {
 }
 ```
 
-Benefits<br>
+💡Benefits<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Plan artifacts for safe review before applying changes<br>

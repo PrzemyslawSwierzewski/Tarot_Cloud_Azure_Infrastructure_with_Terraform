@@ -62,3 +62,4 @@ terraform apply -var-file="terraform.tfvars"
 	• Implement multi-environment structure (dev, stage, prod)<br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
 
+This project is licensed under the [MIT License](./LICENSE).

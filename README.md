@@ -50,14 +50,14 @@ terraform apply -var-file="terraform.tfvars"
 ```
 
 🏗 Best Practices Implemented
-	• Modular design → compute, networking, security
-	• Dynamic resources → scalable with for_each
-	• Separation of concerns → networking ≠ security
-	• Reusable locals for naming standards
-	• Sensitive variables stored in .tfvars or Terraform Cloud
-	• Outputs for cross-module dependencies
+	• Modular design → compute, networking, security<br>
+	• Dynamic resources → scalable with for_each<br>
+	• Separation of concerns → networking ≠ security<br>
+	• Reusable locals for naming standards<br>
+	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
+	• Outputs for cross-module dependencies<br>
 
 📈 Future Improvements
-	• Add CI/CD pipeline (GitHub Actions / Azure DevOps)
-	• Implement multi-environment structure (dev, stage, prod)
-	• Add monitoring (Azure Monitor, Log Analytics)
+	• Add CI/CD pipeline (GitHub Actions / Azure DevOps)<br>
+	• Implement multi-environment structure (dev, stage, prod)<br>
+	• Add monitoring (Azure Monitor, Log Analytics)<br>

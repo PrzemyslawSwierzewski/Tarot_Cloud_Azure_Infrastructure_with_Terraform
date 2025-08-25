@@ -81,11 +81,11 @@ terraform {
 }
 ```
 
-Benefits
-	• Automated CI/CD for every code change
-	• Centralized state management with Terraform Cloud
-	• Plan artifacts for safe review before applying changes
-	• Secure credentials stored in GitHub Secrets
+Benefits<br>
+	• Automated CI/CD for every code change<br>
+	• Centralized state management with Terraform Cloud<br>
+	• Plan artifacts for safe review before applying changes<br>
+	• Secure credentials stored in GitHub Secrets<br>
 
 🏗 Best Practices Implemented<br>
 	• Automated CI/CD for every code change<br>

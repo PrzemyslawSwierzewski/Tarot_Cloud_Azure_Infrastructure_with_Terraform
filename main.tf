@@ -23,3 +23,13 @@ module "compute" {
 
   depends_on = [module.networking]
 }
+
+module "security" {
+  source     = "./modules/security"
+  tarot_cloud_rg_name    = local.resource_group_name
+  rg_location = local.rg_location
+  subnets    = module.networking.tarot_cloud_subnet_ids
+  vnets = module.networking.vnets
+
+  depends_on = [module.networking]
+}

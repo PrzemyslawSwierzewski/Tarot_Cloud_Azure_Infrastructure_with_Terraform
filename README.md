@@ -81,14 +81,6 @@ terraform {
   required_version = "~> 1.13"
 }
 ```
----
-### 💡 Benefits
-- Automated CI/CD for every code change
-- Centralized state management with Terraform Cloud
-- Plan artifacts for safe review before applying changes
-- Secure credentials stored in GitHub Secrets
-
----
 
 ### 🏗 Best Practices Implemented
 - Automated CI/CD for every code change

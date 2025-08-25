@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
 
-    # Set environment variables for all steps in this job
     env:
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -45,6 +44,11 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true
 
+    - name: Upload Terraform Plan
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-plan
+        path: tfplan
+
     - name: Terraform Apply
-      if: github.ref == 'refs/heads/"main"' && github.event_name == 'push'
       run: terraform apply -auto-approve -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true

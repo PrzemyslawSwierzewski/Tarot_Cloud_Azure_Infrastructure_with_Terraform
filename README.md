@@ -31,7 +31,7 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
   - VM Public IP addresses
   - **CI/CD with GitHub Actions and Terraform Cloud**
     
-This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform.  
+This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform. <br>
 **Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---
 ### Workflow
@@ -42,9 +42,9 @@ This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraf
 ## 🚀 Usage
 1. **Checkout** — Clone the repository.  
 2. **Terraform Setup** — Install CLI and configure Terraform Cloud using `TF_API_TOKEN`.  
-3. **Terraform Init** — Connect to Terraform Cloud workspace (`tarot-cloud`) in `personal-org-prem`).  
+3. **Terraform Init** — Connect to Terraform Cloud workspace `your-workspace` in `your-organization`.  
 4. **Terraform Format** — Check formatting of `.tf` files.  
-5. **Terraform Plan** — Generate a plan and upload as artifact.  
+5. **Terraform Plan** — Generate a plan. 
 6. **Terraform Apply** — Apply the plan to provision/update infrastructure.
 
 ---
@@ -59,17 +59,25 @@ This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraf
 
 ### Remote Backend
 
-Terraform Cloud is used as the backend:
+Terraform Cloud is used as the backend in providers.tf:
 
 ```hcl
 terraform {
-  backend "remote" {
+    backend "remote" {
     organization = "personal-org-prem"
 
     workspaces {
       name = "tarot-cloud"
     }
   }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "4.41.0"
+    }
+  }
+
+  required_version = "~> 1.13"
 }
 ```
 
@@ -80,9 +88,9 @@ Benefits
 	• Secure credentials stored in GitHub Secrets
 
 🏗 Best Practices Implemented<br>
-	• Automated CI/CD for every code change
-	• Centralized state management with Terraform Cloud
-	• Secure credentials stored in GitHub Secrets
+	• Automated CI/CD for every code change<br>
+	• Centralized state management with Terraform Cloud<br>
+	• Secure credentials stored in GitHub Secrets<br>
 	• Modular design → compute, networking, security<br>
 	• Dynamic resources → scalable with for_each<br>
 	• Separation of concerns → networking ≠ security<br>

@@ -9,4 +9,5 @@ module "networking" {
   tarot_cloud_rg_name = local.resource_group_name
   rg_location         = local.rg_location
 
+  depends_on = [azurerm_resource_group.tarot_cloud_rg]
 }

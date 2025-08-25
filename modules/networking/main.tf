@@ -5,9 +5,6 @@ resource "azurerm_virtual_network" "tarot_cloud_vnet" {
   location            = local.resources_location
   resource_group_name = var.tarot_cloud_rg_name
 
-  depends_on = [
-    var.tarot_cloud_rg_name
-  ]
 }
 
 resource "azurerm_subnet" "tarot_cloud_subnet" {
@@ -78,9 +75,6 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
     }
   }
 
-  depends_on = [
-    var.tarot_cloud_rg_name
-  ]
 }
 
 resource "azurerm_subnet_network_security_group_association" "tarot_cloud_assoc" {

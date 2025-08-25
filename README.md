@@ -30,7 +30,7 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
 - **Outputs**
   - VM Public IP addresses
   - **CI/CD with GitHub Actions and Terraform Cloud**
-  - 
+    
 This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform.  
 **Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---

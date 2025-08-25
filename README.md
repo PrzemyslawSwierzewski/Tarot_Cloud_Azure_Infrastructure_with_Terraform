@@ -57,7 +57,7 @@ terraform apply -var-file="terraform.tfvars"
 	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
 	• Outputs for cross-module dependencies<br>
 
-📈 Future Improvements
+📈 Future Improvements<br>
 	• Add CI/CD pipeline (GitHub Actions / Azure DevOps)<br>
 	• Implement multi-environment structure (dev, stage, prod)<br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>

@@ -47,6 +47,7 @@ terraform plan -var-file="terraform.tfvars" (if you are running the code locally
 
 4.Deploy infrastructure:
 terraform apply -var-file="terraform.tfvars"
+```bash
 
 🏗 Best Practices Implemented
 	• Modular design → compute, networking, security

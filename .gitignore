@@ -4,3 +4,4 @@
 .terraform/modules/modules.json
 terraform.tfstate.backup
 terraform.tfstate
+terraform.tfvars

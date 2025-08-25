@@ -1,4 +1,11 @@
 terraform {
+    backend "remote" {
+    organization = "personal-org-prem"
+
+    workspaces {
+      name = "tarot-cloud"
+    }
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"

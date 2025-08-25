@@ -32,7 +32,7 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
   - **CI/CD with GitHub Actions and Terraform Cloud**
     
 This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform. <br>
-**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
+<br>**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---
 ### Workflow
 **Triggers**:  

@@ -4,7 +4,13 @@ This project provisions a **modular Azure environment** using Terraform.
 It demonstrates **infrastructure as code (IaC)** best practices, suitable for a production-like setup.
 
 ---
+## ⚙️ Requirements
 
+- [Terraform](https://developer.hashicorp.com/terraform/downloads) ~> 1.13
+- Azure subscription
+- SSH key pair for Linux VM access
+
+---
 ## 📌 Features
 
 - **Resource Group** – Dedicated container for resources
@@ -23,33 +29,60 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
   - Automatic association with subnets
 - **Outputs**
   - VM Public IP addresses
+  - **CI/CD with GitHub Actions and Terraform Cloud**
+  - 
+This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform.  
+**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
+---
+### Workflow
+**Triggers**:  
+- Pushes to the `main` branch  
+- Pull requests against `main`  
 
-## ⚙️ Requirements
-
-- [Terraform](https://developer.hashicorp.com/terraform/downloads) >= 1.12.2
-- Azure subscription
-- SSH key pair for Linux VM access
+## 🚀 Usage
+1. **Checkout** — Clone the repository.  
+2. **Terraform Setup** — Install CLI and configure Terraform Cloud using `TF_API_TOKEN`.  
+3. **Terraform Init** — Connect to Terraform Cloud workspace (`tarot-cloud`) in `personal-org-prem`).  
+4. **Terraform Format** — Check formatting of `.tf` files.  
+5. **Terraform Plan** — Generate a plan and upload as artifact.  
+6. **Terraform Apply** — Apply the plan to provision/update infrastructure.
 
 ---
 
-## 🚀 Usage
+### Secrets
 
-1. Clone the repository:
-```bash
-git clone https://github.com/PrzemyslawSwierzewski/tarot-cloud.git
-cd tarot-cloud
+- `TF_API_TOKEN` — Terraform Cloud API token  
+- `SSH_PUBLIC_KEY` — SSH key for VM access  
+- `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials  
 
-2. Initialize Terraform:
-terraform init
+---
 
-3.Preview the plan:
-terraform plan -var-file="terraform.tfvars" (if you are running the code locally you would need to save the SSH public key here)
+### Remote Backend
 
-4.Deploy infrastructure:
-terraform apply -var-file="terraform.tfvars"
+Terraform Cloud is used as the backend:
+
+```hcl
+terraform {
+  backend "remote" {
+    organization = "personal-org-prem"
+
+    workspaces {
+      name = "tarot-cloud"
+    }
+  }
+}
 ```
 
+Benefits
+	• Automated CI/CD for every code change
+	• Centralized state management with Terraform Cloud
+	• Plan artifacts for safe review before applying changes
+	• Secure credentials stored in GitHub Secrets
+
 🏗 Best Practices Implemented<br>
+	• Automated CI/CD for every code change
+	• Centralized state management with Terraform Cloud
+	• Secure credentials stored in GitHub Secrets
 	• Modular design → compute, networking, security<br>
 	• Dynamic resources → scalable with for_each<br>
 	• Separation of concerns → networking ≠ security<br>
@@ -58,7 +91,6 @@ terraform apply -var-file="terraform.tfvars"
 	• Outputs for cross-module dependencies<br>
 
 📈 Future Improvements<br>
-	• Add CI/CD pipeline (GitHub Actions / Azure DevOps)<br>
 	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
 

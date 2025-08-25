@@ -1,27 +1,29 @@
-# resource "azurerm_linux_virtual_machine" "example" {
-#   name                = "example-machine"
-#   resource_group_name = azurerm_resource_group.example.name
-#   location            = azurerm_resource_group.example.location
-#   size                = "Standard_F2"
-#   admin_username      = "adminuser"
-#   network_interface_ids = [
-#     azurerm_network_interface.example.id,
-#   ]
+resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
+  for_each = { for idx, nic in var.tarot_cloud_nic : idx => nic }
 
-#   admin_ssh_key {
-#     username   = "adminuser"
-#     public_key = file("~/.ssh/id_rsa.pub")
-#   }
+  name                  = "${local.vm_name}-${each.key}"
+  resource_group_name   = var.tarot_cloud_rg_name
+  location              = var.rg_location
+  size                  = local.vm_size
+  admin_username        = var.admin_username
+  network_interface_ids = [each.value]
 
-#   os_disk {
-#     caching              = "ReadWrite"
-#     storage_account_type = "Standard_LRS"
-#   }
+  admin_ssh_key {
+    username   = var.admin_username
+    public_key = var.env == "local" ? local.ssh_public_key_local : var.ssh_public_key
+  }
 
-#   source_image_reference {
-#     publisher = "Canonical"
-#     offer     = "0001-com-ubuntu-server-jammy"
-#     sku       = "22_04-lts"
-#     version   = "latest"
-#   }
-# }
+  os_disk {
+    caching              = local.os_disk_caching
+    storage_account_type = local.os_disk_storage_type
+  }
+
+  source_image_reference {
+    publisher = local.image_publisher
+    offer     = local.image_offer
+    sku       = local.image_sku
+    version   = local.image_version
+  }
+
+  custom_data = base64encode(file("${path.module}/cloud-init.tpl"))
+}

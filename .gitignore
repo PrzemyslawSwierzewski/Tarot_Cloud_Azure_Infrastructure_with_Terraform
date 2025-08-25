@@ -2,3 +2,5 @@
 .terraform.lock.hcl
 .terraform/providers/registry.terraform.io/hashicorp/azurerm/4.41.0/windows_amd64/LICENSE.txt
 .terraform/modules/modules.json
+terraform.tfstate.backup
+terraform.tfstate

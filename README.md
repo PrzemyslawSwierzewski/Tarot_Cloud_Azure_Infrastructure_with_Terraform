@@ -3,6 +3,8 @@
 This project provisions a **modular Azure environment** using Terraform.  
 It demonstrates **infrastructure as code (IaC)** best practices, suitable for a production-like setup.
 
+<img width="1643" height="790" alt="diagram-export-25 08 2025-17_41_21" src="https://github.com/user-attachments/assets/c30c6476-3c74-4dbb-b611-fa43c605cf50" />
+
 ---
 ## ⚙️ Requirements
 
@@ -100,5 +102,6 @@ terraform {
 - Add monitoring (Azure Monitor, Log Analytics)
 
 ---
+
 
 This project is licensed under the [MIT License](./LICENSE).

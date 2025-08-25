@@ -18,6 +18,8 @@ module "compute" {
   tarot_cloud_rg_name = local.resource_group_name
   rg_location         = local.rg_location
   tarot_cloud_nic     = [for nic_key, nic_id in module.networking.tarot_cloud_nic : nic_id]
+  ssh_public_key = var.ssh_public_key
+
 
   depends_on = [module.networking]
 }

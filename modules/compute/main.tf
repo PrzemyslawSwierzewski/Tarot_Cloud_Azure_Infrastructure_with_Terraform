@@ -10,7 +10,7 @@ resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = var.env == "local" ? local.ssh_public_key_local : var.ssh_public_key
+    public_key = var.ssh_public_key
   }
 
   os_disk {

@@ -1,6 +1,5 @@
 locals {
   vm_name              = "tarot-cloud-vm"
-  ssh_public_key_local = var.env == "cloud" ? "" : var.ssh_public_key
   vm_size              = "Standard_F2"
   os_disk_caching      = "ReadWrite"
   os_disk_storage_type  = "Standard_LRS"

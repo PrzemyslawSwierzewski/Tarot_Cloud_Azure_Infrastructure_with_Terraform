@@ -34,7 +34,7 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
 This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform. <br>
 <br>**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---
-### Workflow
+### ⚙️ Workflow
 **Triggers**:  
 - Pushes to the `main` branch  
 - Pull requests against `main`  
@@ -49,7 +49,7 @@ This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraf
 
 ---
 
-### Secrets
+### 🔑 Secrets
 
 - `TF_API_TOKEN` — Terraform Cloud API token  
 - `SSH_PUBLIC_KEY` — SSH key for VM access  
@@ -57,7 +57,7 @@ This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraf
 
 ---
 
-### Remote Backend
+### ☁️ Remote Backend
 
 Terraform Cloud is used as the backend in providers.tf:
 
@@ -81,13 +81,13 @@ terraform {
 }
 ```
 
-💡Benefits<br>
+###💡Benefits<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Plan artifacts for safe review before applying changes<br>
 	• Secure credentials stored in GitHub Secrets<br>
 
-🏗 Best Practices Implemented<br>
+### 🏗 Best Practices Implemented<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Secure credentials stored in GitHub Secrets<br>
@@ -98,7 +98,7 @@ terraform {
 	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
 	• Outputs for cross-module dependencies<br>
 
-📈 Future Improvements<br>
+###📈 Future Improvements<br>
 	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
 

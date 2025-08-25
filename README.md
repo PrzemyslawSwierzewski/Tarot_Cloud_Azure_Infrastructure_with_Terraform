@@ -49,7 +49,7 @@ terraform plan -var-file="terraform.tfvars" (if you are running the code locally
 terraform apply -var-file="terraform.tfvars"
 ```
 
-🏗 Best Practices Implemented
+🏗 Best Practices Implemented<br>
 	• Modular design → compute, networking, security<br>
 	• Dynamic resources → scalable with for_each<br>
 	• Separation of concerns → networking ≠ security<br>

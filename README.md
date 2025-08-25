@@ -96,7 +96,7 @@ terraform {
 ---
 
 ### 📈 Future Improvements
-- Implement multi-environment structure (resource naming & tags)
+- Implement multi-environment structure (Prod, Dev)
 - Add monitoring (Azure Monitor, Log Analytics)
 
 ---

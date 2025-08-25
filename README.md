@@ -30,9 +30,10 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
 - **Outputs**
   - VM Public IP addresses
   - **CI/CD with GitHub Actions and Terraform Cloud**
-    
+---
 This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform. <br>
-<br>**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
+---
+**Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---
 ### ⚙️ Workflow
 **Triggers**:  
@@ -80,13 +81,13 @@ terraform {
   required_version = "~> 1.13"
 }
 ```
-
+---
 ###💡Benefits<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Plan artifacts for safe review before applying changes<br>
 	• Secure credentials stored in GitHub Secrets<br>
-
+---
 ### 🏗 Best Practices Implemented<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
@@ -97,9 +98,9 @@ terraform {
 	• Reusable locals for naming standards<br>
 	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
 	• Outputs for cross-module dependencies<br>
-
+---
 ###📈 Future Improvements<br>
 	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
-
+---
 This project is licensed under the [MIT License](./LICENSE).

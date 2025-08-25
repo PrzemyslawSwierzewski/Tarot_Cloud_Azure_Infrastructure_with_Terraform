@@ -82,13 +82,13 @@ terraform {
 }
 ```
 ---
-###💡Benefits<br>
+💡###Benefits<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Plan artifacts for safe review before applying changes<br>
 	• Secure credentials stored in GitHub Secrets<br>
 ---
-### 🏗 Best Practices Implemented<br>
+🏗 ###Best Practices Implemented<br>
 	• Automated CI/CD for every code change<br>
 	• Centralized state management with Terraform Cloud<br>
 	• Secure credentials stored in GitHub Secrets<br>
@@ -99,7 +99,7 @@ terraform {
 	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
 	• Outputs for cross-module dependencies<br>
 ---
-###📈 Future Improvements<br>
+📈 ###Future Improvements<br>
 	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
 ---

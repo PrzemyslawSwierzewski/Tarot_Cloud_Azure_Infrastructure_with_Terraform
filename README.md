@@ -59,7 +59,7 @@ terraform apply -var-file="terraform.tfvars"
 
 📈 Future Improvements<br>
 	• Add CI/CD pipeline (GitHub Actions / Azure DevOps)<br>
-	• Implement multi-environment structure (dev, stage, prod)<br>
+	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
 	• Add monitoring (Azure Monitor, Log Analytics)<br>
 
 This project is licensed under the [MIT License](./LICENSE).

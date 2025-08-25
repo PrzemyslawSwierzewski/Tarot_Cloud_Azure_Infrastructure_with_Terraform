@@ -82,25 +82,31 @@ terraform {
 }
 ```
 ---
-💡###Benefits<br>
-	• Automated CI/CD for every code change<br>
-	• Centralized state management with Terraform Cloud<br>
-	• Plan artifacts for safe review before applying changes<br>
-	• Secure credentials stored in GitHub Secrets<br>
+### 💡 Benefits
+- Automated CI/CD for every code change
+- Centralized state management with Terraform Cloud
+- Plan artifacts for safe review before applying changes
+- Secure credentials stored in GitHub Secrets
+
 ---
-🏗 ###Best Practices Implemented<br>
-	• Automated CI/CD for every code change<br>
-	• Centralized state management with Terraform Cloud<br>
-	• Secure credentials stored in GitHub Secrets<br>
-	• Modular design → compute, networking, security<br>
-	• Dynamic resources → scalable with for_each<br>
-	• Separation of concerns → networking ≠ security<br>
-	• Reusable locals for naming standards<br>
-	• Sensitive variables stored in .tfvars or Terraform Cloud<br>
-	• Outputs for cross-module dependencies<br>
+
+### 🏗 Best Practices Implemented
+- Automated CI/CD for every code change
+- Centralized state management with Terraform Cloud
+- Secure credentials stored in GitHub Secrets
+- Modular design → compute, networking, security
+- Dynamic resources → scalable with for_each
+- Separation of concerns → networking ≠ security
+- Reusable locals for naming standards
+- Sensitive variables stored in .tfvars or Terraform Cloud
+- Outputs for cross-module dependencies
+
 ---
-📈 ###Future Improvements<br>
-	• Implement multi-environment structure (what’s left is naming the resources and assigning them appropriate tags) <br>
-	• Add monitoring (Azure Monitor, Log Analytics)<br>
+
+### 📈 Future Improvements
+- Implement multi-environment structure (resource naming & tags)
+- Add monitoring (Azure Monitor, Log Analytics)
+
 ---
+
 This project is licensed under the [MIT License](./LICENSE).

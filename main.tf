@@ -80,3 +80,15 @@ module "prod_security" {
 
   depends_on = [module.prod_networking]
 }
+
+module "prod_monitoring" {
+  source = "./modules/prod/monitoring"
+
+  tarot_cloud_rg_name = local.resource_group_name_prod
+  rg_location         = local.rg_location
+  vm_id               = module.prod_compute.vm_id
+  owner_email_address = var.owner_email_address
+  vm_name             = module.prod_compute.vm_name
+
+  depends_on = [azurerm_resource_group.tarot_cloud_rg_prod, module.prod_compute]
+}

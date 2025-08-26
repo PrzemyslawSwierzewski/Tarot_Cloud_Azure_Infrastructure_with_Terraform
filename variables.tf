@@ -9,3 +9,8 @@ variable "my_public_ip_address" {
   description = "Public IP address"
   sensitive   = true
 }
+
+variable "owner_email_address" {
+  type        = string
+  description = "Email address of the subscription owner"
+}

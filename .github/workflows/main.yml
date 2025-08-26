@@ -13,6 +13,8 @@ jobs:
   tfsec:
     name: 'Security Scan (tfsec)'
     runs-on: ubuntu-latest
+    env:
+      TFSEC_GITHUB_TOKEN: ${{ secrets.TFSEC_GITHUB_TOKEN }}
 
     steps:
     - name: Checkout
@@ -22,13 +24,14 @@ jobs:
       uses: aquasecurity/tfsec-action@v1.0.3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        working_directory: .
+
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
 
     env:
-      TFSEC_GITHUB_TOKEN: ${{ secrets.TFSEC_GITHUB_TOKEN }}
       TF_VAR_my_public_ip_address: ${{ secrets.MY_PUBLIC_IP_ADDRESS }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -54,10 +57,10 @@ jobs:
       run: terraform init
 
     - name: Terraform Format
-      run: terraform fmt -check || true
+      run: terraform fmt -check
 
     - name: Terraform Plan
-      run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true
+      run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}"
 
     - name: Terraform Apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'

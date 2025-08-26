@@ -131,6 +131,7 @@ terraform apply tfplan
 
 ## 🏗 Best Practices Implemented
 
+- Security scanning with tfsec implemented with GitHub Actions
 - Multi-environment structure (Prod, Dev)  
 - Automated CI/CD for all code changes  
 - Centralized state management with Terraform Cloud  
@@ -146,8 +147,7 @@ terraform apply tfplan
 
 ## 📈 Future Improvements
 
-- Add monitoring using Azure Monitor & Log Analytics  
-- Integrate static analysis and security scanning (tfsec / Checkov)  
+- Add monitoring using Azure Monitor & Log Analytics   
 
 ---
 

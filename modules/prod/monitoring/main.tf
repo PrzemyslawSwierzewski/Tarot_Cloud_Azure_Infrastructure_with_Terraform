@@ -17,6 +17,8 @@ resource "azurerm_storage_account" "monitoring" {
   account_tier             = local.SA_account_tier
   account_replication_type = local.SA_account_replication_type
 
+  min_tls_version = "TLS1_2"
+
   tags = {
     Environment = local.environment
   }

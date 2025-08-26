@@ -61,12 +61,14 @@ jobs:
       run: terraform fmt -check
 
     - name: Terraform Plan
-      run: terraform plan -input=false \
+      run: |
+        terraform plan -input=false \
         -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" \
         -var "owner_email_address=${{ secrets.EMAIL_ADDRESS }}"
 
     - name: Terraform Apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      run: terraform apply -auto-approve -input=false \
+      run: | 
+        terraform apply -auto-approve -input=false \
         -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" \
         -var "owner_email_address=${{ secrets.EMAIL_ADDRESS }}"

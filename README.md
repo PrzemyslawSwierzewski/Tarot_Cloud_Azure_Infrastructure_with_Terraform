@@ -130,7 +130,8 @@ terraform apply tfplan
 
 All sensitive credentials are stored securely in GitHub Secrets or Terraform Cloud variables:
 
-- `EMAIL_ADDRESS` 
+- `EMAIL_ADDRESS`
+- `PUBLIC_IP_ADDRESS`
 - `TFSEC_GITHUB_TOKEN`  
 - `TF_API_TOKEN`  
 - `SSH_PUBLIC_KEY`  

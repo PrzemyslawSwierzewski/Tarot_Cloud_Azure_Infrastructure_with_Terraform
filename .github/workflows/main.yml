@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   terraform:
@@ -15,7 +16,8 @@ jobs:
     environment: production
 
     env:
-      TF_VAR_my_public_ip_address: ${ secrets.MY_PUBLIC_IP_ADDRESS }
+      TFSEC_GITHUB_TOKEN: ${{ secrets.TFSEC_GITHUB_TOKEN }}
+      TF_VAR_my_public_ip_address: ${{ secrets.MY_PUBLIC_IP_ADDRESS }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -41,6 +43,12 @@ jobs:
 
     - name: Terraform Format
       run: terraform fmt -check || true
+
+    - name: Run tfsec security scan
+      uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
+      with:
+        github_token: ${{ secrets.TFSEC_GITHUB_TOKEN }}
+        directory: .
 
     - name: Terraform Plan
       run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true

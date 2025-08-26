@@ -66,6 +66,7 @@ cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 ```
 
 2. **Terraform Setup** — Install Terraform CLI and configure GitHub secrets:
+- `TFSEC_GITHUB_TOKEN` - Your GITHUB_TOKEN. It will be passed to GitHub action for tfsec checks
 - `PUBLIC_IP_ADDRESS` - Your public IP address. It will be used to restrict the Network Security Group so that only you can access the Linux machine
 - `TF_API_TOKEN` — Terraform Cloud API token  
 - `SSH_PUBLIC_KEY` — SSH key for VM access  

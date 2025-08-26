@@ -60,10 +60,10 @@ GitHub Actions + Terraform Cloud handle automated validation, initialization, fo
 
 1. **Checkout** — Clone the repository:
 
-[CODE:bash]
+```bash
 git clone https://github.com/PrzemyslawSwierzewski/Tarot-Cloud---Azure-Infrastructure-with-Terraform.git
 cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
-[/CODE]
+```
 
 2. **Terraform Setup** — Install Terraform CLI and configure GitHub secrets:  
 - `TF_API_TOKEN` — Terraform Cloud API token  
@@ -72,13 +72,13 @@ cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 
 3. **Terraform Init** — Connect to your Terraform Cloud workspace and initialize:
 
-[CODE:bash]
+```bash
 terraform init
-[/CODE]
+```
 
 > Note: Update `providers.tf` with your organization and workspace:
 
-[CODE:hcl]
+```hcl
 terraform {
   backend "remote" {
     organization = "personal-org-prem"
@@ -97,25 +97,25 @@ terraform {
 
   required_version = "~> 1.13"
 }
-[/CODE]
+```
 
 4. **Terraform Format** — Check formatting of `.tf` files:
 
-[CODE:bash]
+```bash
 terraform fmt
-[/CODE]
+```
 
 5. **Terraform Plan** — Generate a plan:
 
-[CODE:bash]
+```bash
 terraform plan -out=tfplan
-[/CODE]
+```
 
 6. **Terraform Apply** — Apply the plan:
 
-[CODE:bash]
+```bash
 terraform apply tfplan
-[/CODE]
+```
 
 ---
 

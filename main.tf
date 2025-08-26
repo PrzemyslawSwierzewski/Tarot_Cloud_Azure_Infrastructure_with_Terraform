@@ -35,6 +35,7 @@ module "dev_security" {
   rg_location = local.rg_location
   subnets    = module.dev_networking.tarot_cloud_subnet_ids
   vnets = module.dev_networking.vnets
+  my_public_ip_address = var.my_public_ip_address
 
   depends_on = [module.dev_networking]
 }
@@ -75,6 +76,7 @@ module "prod_security" {
   rg_location = local.rg_location
   subnets    = module.prod_networking.tarot_cloud_subnet_ids
   vnets = module.prod_networking.vnets
+  my_public_ip_address = var.my_public_ip_address
 
   depends_on = [module.prod_networking]
 }

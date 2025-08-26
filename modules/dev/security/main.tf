@@ -4,7 +4,7 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
   resource_group_name = var.tarot_cloud_rg_name
 
   dynamic "security_rule" {
-    for_each = flatten([for group in var.security_rules : values(group)])
+    for_each = flatten([for group in local.security_rules : values(group)])
     content {
       name                       = security_rule.value.name
       priority                   = security_rule.value.priority

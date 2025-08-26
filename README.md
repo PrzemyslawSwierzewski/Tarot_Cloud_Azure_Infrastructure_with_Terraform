@@ -16,55 +16,41 @@ It demonstrates **infrastructure as code (IaC)** best practices, suitable for a 
 ---
 ## 📌 Features
 
-- **Resource Group** – Dedicated container for resources
-- **Networking Module**
+- **Resource Groups** – Dedicated container for dev and prod resources
+- **Networking Module seperate for dev and prod resources**
   - Virtual Networks & Subnets
   - Public IPs
   - Network Interfaces
-- **Compute Module**
+- **Networking Module seperate for dev and prod resources**
   - Linux Virtual Machines
   - Cloud-init provisioning
   - SSH key authentication
-- **Security Module**
+- **Networking Module seperate for dev and prod resources**
   - Network Security Groups (NSGs)
   - Inbound rules for SSH (22), HTTP (80), HTTPS (443)
   - Outbound rule allowing all traffic
   - Automatic association with subnets
 - **Outputs**
-  - VM Public IP addresses
-  - **CI/CD with GitHub Actions and Terraform Cloud**
----
+  - VM dev and prod Public IP addresses
+--- 
+**CI/CD with GitHub Actions and Terraform Cloud**
+<br>
 This repository uses **GitHub Actions** to implement a CI/CD pipeline for Terraform. <br>
----
+<br>
 **Terraform Cloud** serves as the remote backend to manage state securely and track runs.
 ---
-### ⚙️ Workflow
-**Triggers**:  
-- Pushes to the `main` branch  
-- Pull requests against `main`  
+🔄 **CI/CD Workflow**
+
+Triggers:<br>
+  -Pushes to the main branch
+  -Pull requests against main
+
+GitHub Actions + Terraform Cloud ensure automated validation,init, fmt, plan, and apply steps on every change.
 
 ## 🚀 Usage
 1. **Checkout** — Clone the repository.  
-2. **Terraform Setup** — Install CLI and configure Terraform Cloud using `TF_API_TOKEN`.  
-3. **Terraform Init** — Connect to Terraform Cloud workspace `your-workspace` in `your-organization`.  
-4. **Terraform Format** — Check formatting of `.tf` files.  
-5. **Terraform Plan** — Generate a plan. 
-6. **Terraform Apply** — Apply the plan to provision/update infrastructure.
-
----
-
-### 🔑 Secrets
-
-- `TF_API_TOKEN` — Terraform Cloud API token  
-- `SSH_PUBLIC_KEY` — SSH key for VM access  
-- `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials  
-
----
-
-### ☁️ Remote Backend
-
-Terraform Cloud is used as the backend in providers.tf:
-
+2. **Terraform Setup** — Install CLI and configure Github secrets with {`TF_API_TOKEN`} - Terraform User API token. {`ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID} - Azure Service Principal credentials  
+3. **Terraform Init** — Connect to Terraform Cloud workspace. In providers.tf file change organization and name of the workspace :
 ```hcl
 terraform {
     backend "remote" {
@@ -84,6 +70,19 @@ terraform {
   required_version = "~> 1.13"
 }
 ```
+4. **Terraform Format** — Check formatting of `.tf` files.  
+5. **Terraform Plan** — Generate a plan. 
+6. **Terraform Apply** — Apply the plan to provision/update infrastructure.
+
+---
+
+### 🔑 Secrets
+
+- `TF_API_TOKEN` — Terraform Cloud API token  
+- `SSH_PUBLIC_KEY` — SSH key for VM access  
+- `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials  
+
+---
 
 ### 🏗 Best Practices Implemented
 - Multi-environment structure (Prod, Dev)
@@ -103,6 +102,5 @@ terraform {
 - Add monitoring (Azure Monitor, Log Analytics)
 
 ---
-
 
 This project is licensed under the [MIT License](./LICENSE).

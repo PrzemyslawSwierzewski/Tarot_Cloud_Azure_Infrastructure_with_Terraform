@@ -7,4 +7,5 @@ locals {
   image_offer           = "0001-com-ubuntu-server-jammy"
   image_sku             = "22_04-lts"
   image_version         = "latest"
+  environment          = "prod"
 }

@@ -1,35 +1,80 @@
-resource "azurerm_resource_group" "tarot_cloud_rg" {
-  name     = local.resource_group_name
+# Dev ENV
+resource "azurerm_resource_group" "tarot_cloud_rg_dev" {
+  name     = local.resource_group_name_dev
   location = local.rg_location
+
+  tags = {
+    Environment = local.dev_environment
+  }
 }
 
-module "networking" {
-  source = "./modules/networking"
+module "dev_networking" {
+  source = "./modules/dev/networking"
 
-  tarot_cloud_rg_name = local.resource_group_name
+  tarot_cloud_rg_name = local.resource_group_name_dev
   rg_location         = local.rg_location
 
-  depends_on = [azurerm_resource_group.tarot_cloud_rg]
+  depends_on = [azurerm_resource_group.tarot_cloud_rg_dev]
 }
 
-module "compute" {
-  source = "./modules/compute"
+module "dev_compute" {
+  source = "./modules/dev/compute"
 
-  tarot_cloud_rg_name = local.resource_group_name
+  tarot_cloud_rg_name = local.resource_group_name_dev
   rg_location         = local.rg_location
-  tarot_cloud_nic     = [for nic_key, nic_id in module.networking.tarot_cloud_nic : nic_id]
+  tarot_cloud_nic     = [for nic_key, nic_id in module.dev_networking.tarot_cloud_nic : nic_id]
   ssh_public_key = var.ssh_public_key
 
 
-  depends_on = [module.networking]
+  depends_on = [module.dev_networking]
 }
 
-module "security" {
-  source     = "./modules/security"
-  tarot_cloud_rg_name    = local.resource_group_name
+module "dev_security" {
+  source     = "./modules/dev/security"
+  tarot_cloud_rg_name    = local.resource_group_name_dev
   rg_location = local.rg_location
-  subnets    = module.networking.tarot_cloud_subnet_ids
-  vnets = module.networking.vnets
+  subnets    = module.dev_networking.tarot_cloud_subnet_ids
+  vnets = module.dev_networking.vnets
 
-  depends_on = [module.networking]
+  depends_on = [module.dev_networking]
+}
+#Prod ENV
+resource "azurerm_resource_group" "tarot_cloud_rg_prod" {
+  name     = local.resource_group_name_prod
+  location = local.rg_location
+
+  tags = {
+    Environment = local.prod_environment
+  }
+}
+
+module "prod_networking" {
+  source = "./modules/prod/networking"
+
+  tarot_cloud_rg_name = local.resource_group_name_prod
+  rg_location         = local.rg_location
+
+  depends_on = [azurerm_resource_group.tarot_cloud_rg_prod]
+}
+
+module "prod_compute" {
+  source = "./modules/prod/compute"
+
+  tarot_cloud_rg_name = local.resource_group_name_prod
+  rg_location         = local.rg_location
+  tarot_cloud_nic     = [for nic_key, nic_id in module.prod_networking.tarot_cloud_nic : nic_id]
+  ssh_public_key = var.ssh_public_key
+
+
+  depends_on = [module.prod_networking]
+}
+
+module "prod_security" {
+  source     = "./modules/prod/security"
+  tarot_cloud_rg_name    = local.resource_group_name_prod
+  rg_location = local.rg_location
+  subnets    = module.prod_networking.tarot_cloud_subnet_ids
+  vnets = module.prod_networking.vnets
+
+  depends_on = [module.prod_networking]
 }

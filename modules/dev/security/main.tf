@@ -1,7 +1,5 @@
 resource "azurerm_network_security_group" "tarot_cloud_nsg" {
-  for_each            = var.vnets
-
-  name                = "${local.network_security_group_name}-${each.key}"
+  name                = "${local.network_security_group_name}-${local.environment}"
   location            = var.rg_location
   resource_group_name = var.tarot_cloud_rg_name
 
@@ -19,13 +17,16 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
       destination_address_prefix = security_rule.value.destination_address_prefix
     }
   }
+
+  tags = {
+    Environment = local.environment
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "tarot_cloud_assoc" {
-  for_each = var.subnets
 
-  subnet_id                 = each.value
-  network_security_group_id = azurerm_network_security_group.tarot_cloud_nsg[each.key].id
+  subnet_id                 = var.subnets[0]
+  network_security_group_id = azurerm_network_security_group.tarot_cloud_nsg.id
 
   depends_on = [
     azurerm_network_security_group.tarot_cloud_nsg

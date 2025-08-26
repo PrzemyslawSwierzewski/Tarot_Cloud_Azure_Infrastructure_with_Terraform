@@ -1,12 +1,10 @@
 resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
-  for_each = { for idx, nic in var.tarot_cloud_nic : idx => nic }
-
-  name                  = "${local.vm_name}-${each.key}"
+  name                  = "${local.vm_name}-${local.environment}"
   resource_group_name   = var.tarot_cloud_rg_name
   location              = var.rg_location
   size                  = local.vm_size
   admin_username        = var.admin_username
-  network_interface_ids = [each.value]
+  network_interface_ids = var.tarot_cloud_nic
 
   admin_ssh_key {
     username   = var.admin_username
@@ -26,4 +24,8 @@ resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
   }
 
   custom_data = base64encode(file("${path.module}/cloud-init.tpl"))
+
+  tags = {
+    Environment = local.environment
+  }
 }

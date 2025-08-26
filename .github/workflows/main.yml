@@ -51,4 +51,5 @@ jobs:
         path: tfplan
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    run: terraform apply -auto-approve -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true

@@ -7,7 +7,7 @@ variable "rg_location" {
 }
 
 variable "subnets" {
-  type = map(string)
+  type = list(string)
   description = "Map of subnet IDs to attach NSGs"
 }
 
@@ -78,5 +78,5 @@ variable "security_rules" {
 }
 
 variable "vnets" {
-  type = map(string) 
+  type = list(string)
 }

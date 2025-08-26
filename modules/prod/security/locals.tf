@@ -42,7 +42,7 @@ locals {
     Outbound = {
       Allow443port = {
         name                       = "Allow443"
-        priority                   = 100
+        priority                   = 103
         direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "*"
@@ -53,7 +53,7 @@ locals {
       }
       Allow80port = {
         name                       = "Allow80"
-        priority                   = 101
+        priority                   = 104
         direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "*"
@@ -64,14 +64,14 @@ locals {
       }
       Allow_ssh_to_my_machine = {
         name                       = "Allow_ssh_to_my_machine"
-        priority                   = 102
-        direction                  = "Inbound"
+        priority                   = 105
+        direction                  = "Outbound"
         access                     = "Allow"
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "22"
-        source_address_prefix      = var.my_public_ip_address
-        destination_address_prefix = "*"
+        source_address_prefix      = "*"
+        destination_address_prefix = var.my_public_ip_address
       }
     }
   }

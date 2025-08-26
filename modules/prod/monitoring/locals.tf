@@ -15,10 +15,10 @@ locals {
   window_size_of_metric_alerts = "PT5M"
 
   # CPU / memory alerts
-  cpu_alert_name          = "${local.environment}-${var.vm_name}-cpu-alert"
-  memory_alert_name       = "${local.environment}-${var.vm_name}-memory-alert"
+  cpu_alert_name    = "${local.environment}-${var.vm_name}-cpu-alert"
+  memory_alert_name = "${local.environment}-${var.vm_name}-memory-alert"
 
   # Alert descriptions
-  cpu_alert_description          = "Alert if CPU usage exceeds 80% for 5 minutes"
-  memory_alert_description       = "Alert if Memory usage exceeds 80% for 5 minutes"
+  cpu_alert_description    = "Alert if CPU usage exceeds 80% for 5 minutes"
+  memory_alert_description = "Alert if Memory usage exceeds 80% for 5 minutes"
 }

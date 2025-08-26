@@ -25,8 +25,8 @@ resource "azurerm_storage_account" "monitoring" {
 }
 
 resource "azurerm_storage_container" "monitoring_container" {
-  name               = "monitoringcontainer"
-  storage_account_id = azurerm_storage_account.monitoring.id
+  name                  = "monitoringcontainer"
+  storage_account_id    = azurerm_storage_account.monitoring.id
   container_access_type = "container"
 }
 
@@ -72,19 +72,19 @@ resource "azurerm_monitor_data_collection_rule_association" "dcr_association" {
 }
 
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "heartbeat_alert" {
-    name                  = "vm_heartbeat_alert"
-    resource_group_name   = var.tarot_cloud_rg_name
-    location              = var.rg_location
-    description           = "Alert if Linux VM stops sending heartbeat"
-    severity              = 1
-    enabled               = true
-    window_duration       = local.window_size_of_metric_alerts   # Check last 5 minutes
-    evaluation_frequency  = local.frequency_of_metric_alerts   # Evaluate every 1 minute
+  name                 = "vm_heartbeat_alert"
+  resource_group_name  = var.tarot_cloud_rg_name
+  location             = var.rg_location
+  description          = "Alert if Linux VM stops sending heartbeat"
+  severity             = 1
+  enabled              = true
+  window_duration      = local.window_size_of_metric_alerts # Check last 5 minutes
+  evaluation_frequency = local.frequency_of_metric_alerts   # Evaluate every 1 minute
 
-    scopes = [azurerm_log_analytics_workspace.prod_monitoring.id]
+  scopes = [azurerm_log_analytics_workspace.prod_monitoring.id]
 
-    criteria {
-      query = <<KQL
+  criteria {
+    query = <<KQL
   Heartbeat
   | where Computer == "${var.vm_name}"
   | summarize LastHeartbeat = max(TimeGenerated)
@@ -93,13 +93,13 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "heartbeat_alert" {
   KQL
 
     time_aggregation_method = "Average"
-    operator         = "GreaterThan"
-    threshold        = 0
-    }
+    operator                = "GreaterThan"
+    threshold               = 0
+  }
 
-    action {
-      action_groups = [azurerm_monitor_action_group.alerts.id]
-    }
+  action {
+    action_groups = [azurerm_monitor_action_group.alerts.id]
+  }
 }
 
 

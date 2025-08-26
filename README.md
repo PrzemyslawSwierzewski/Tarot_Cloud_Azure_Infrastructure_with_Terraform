@@ -85,6 +85,7 @@ terraform {
 ```
 
 ### 🏗 Best Practices Implemented
+- Multi-environment structure (Prod, Dev)
 - Automated CI/CD for every code change
 - Centralized state management with Terraform Cloud
 - Secure credentials stored in GitHub Secrets
@@ -98,7 +99,6 @@ terraform {
 ---
 
 ### 📈 Future Improvements
-- Implement multi-environment structure (Prod, Dev)
 - Add monitoring (Azure Monitor, Log Analytics)
 
 ---

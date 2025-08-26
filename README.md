@@ -39,6 +39,14 @@ It demonstrates **infrastructure as code (IaC)** best practices and is suitable 
 - Outbound rule allowing all traffic
 - Automatic association with subnets
 
+### Monitoring Module
+- Monitoring logs are collected based on Azure Monitor (later to be replaced with Azure Monitor Agent (AMA) https://medium.com/@t.costantini89/send-linux-vm-logs-to-an-azure-log-analytics-workspace-using-terraform-and-the-azure-monitor-agent-939d481cc48a)
+- Log Analytics workspace for collecting logs and metrics
+- Storage account for diagnostics data
+- Diagnostic settings to send VM logs and metrics to workspace and storage
+- Metric alerts: CPU >90%, Memory <10%
+- Notifications sent via action group (email)
+
 ### Outputs
 - VM Dev and Prod public IP addresses
 - Other cross-module outputs
@@ -66,6 +74,7 @@ cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 ```
 
 2. **Terraform Setup** — Install Terraform CLI and configure GitHub secrets:
+- `EMAIL_ADDRESS` - Email address where you would like to recive an emails in case of high CPU or high memory utilization
 - `TFSEC_GITHUB_TOKEN` - Your GITHUB_TOKEN. It will be passed to GitHub action for tfsec checks
 - `PUBLIC_IP_ADDRESS` - Your public IP address. It will be used to restrict the Network Security Group so that only you can access the Linux machine
 - `TF_API_TOKEN` — Terraform Cloud API token. It will be used to connect to your terraform cloud.
@@ -143,12 +152,6 @@ terraform apply tfplan
 - Reusable locals for consistent naming  
 - Sensitive variables stored in `.tfvars` or Terraform Cloud  
 - Outputs for cross-module dependencies  
-
----
-
-## 📈 Future Improvements
-
-- Add monitoring using Azure Monitor & Log Analytics   
 
 ---
 

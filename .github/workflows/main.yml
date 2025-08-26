@@ -32,6 +32,7 @@ jobs:
     environment: production
 
     env:
+      TF_VAR_EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
       TF_VAR_my_public_ip_address: ${{ secrets.MY_PUBLIC_IP_ADDRESS }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}

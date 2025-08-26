@@ -72,7 +72,7 @@ git clone https://github.com/PrzemyslawSwierzewski/Tarot-Cloud---Azure-Infrastru
 cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 ```
 
-2. **Configure Secrets** in GitHub or Terraform Cloud:
+2. **Configure Secrets** in GitHub:
 
 - `EMAIL_ADDRESS` — For monitoring alerts  
 - `TFSEC_GITHUB_TOKEN` — For tfsec security scanning  
@@ -89,7 +89,7 @@ Run:
 terraform init
 ```
 
-> Update `providers.tf` with your organization and workspace if needed:
+> Update `providers.tf` with your organization and workspace:
 
 ```hcl
 terraform {

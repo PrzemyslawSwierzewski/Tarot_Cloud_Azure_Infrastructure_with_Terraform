@@ -68,9 +68,9 @@ cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 2. **Terraform Setup** — Install Terraform CLI and configure GitHub secrets:
 - `TFSEC_GITHUB_TOKEN` - Your GITHUB_TOKEN. It will be passed to GitHub action for tfsec checks
 - `PUBLIC_IP_ADDRESS` - Your public IP address. It will be used to restrict the Network Security Group so that only you can access the Linux machine
-- `TF_API_TOKEN` — Terraform Cloud API token  
-- `SSH_PUBLIC_KEY` — SSH key for VM access  
-- `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials  
+- `TF_API_TOKEN` — Terraform Cloud API token. It will be used to connect to your terraform cloud.
+- `SSH_PUBLIC_KEY` — SSH key for VM access. It will be used to save your ssh key on a linux machine.
+- `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials. It will be used to connect to your Azure subscription. 
 
 3. **Terraform Init** — Connect to your Terraform Cloud workspace and initialize:
 
@@ -123,6 +123,7 @@ terraform apply tfplan
 
 ## 🔑 Secrets
 
+- `TFSEC_GITHUB_TOKEN` - Your GITHUB_TOKEN
 - `TF_API_TOKEN` — Terraform Cloud API token  
 - `SSH_PUBLIC_KEY` — SSH key for VM access  
 - `ARM_CLIENT_ID`, `ARM_CLIENT_SECRET`, `ARM_SUBSCRIPTION_ID`, `ARM_TENANT_ID` — Azure Service Principal credentials  

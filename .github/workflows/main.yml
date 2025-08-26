@@ -48,7 +48,7 @@ jobs:
       uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
       with:
         github_token: ${{ secrets.TFSEC_GITHUB_TOKEN }}
-        directory: .
+        working_directory: .
 
     - name: Terraform Plan
       run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true

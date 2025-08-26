@@ -10,6 +10,18 @@ permissions:
   pull-requests: write
 
 jobs:
+  tfsec:
+    name: 'Security Scan (tfsec)'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Run tfsec (full scan)
+      uses: aquasecurity/tfsec-action@v1.0.3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
@@ -43,12 +55,6 @@ jobs:
 
     - name: Terraform Format
       run: terraform fmt -check || true
-
-    - name: Run tfsec security scan
-      uses: aquasecurity/tfsec-pr-commenter-action@v1.2.0
-      with:
-        github_token: ${{ secrets.TFSEC_GITHUB_TOKEN }}
-        working_directory: .
 
     - name: Terraform Plan
       run: terraform plan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" || true

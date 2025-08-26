@@ -8,4 +8,5 @@ locals {
   image_sku            = "22_04-lts"
   image_version        = "latest"
   environment          = "prod"
+  AzureMonitorLinuxAgent = "AzureMonitorLinuxAgent"
 }

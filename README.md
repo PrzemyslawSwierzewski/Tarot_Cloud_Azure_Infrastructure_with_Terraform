@@ -72,7 +72,7 @@ git clone https://github.com/PrzemyslawSwierzewski/Tarot-Cloud---Azure-Infrastru
 cd Tarot-Cloud---Azure-Infrastructure-with-Terraform
 ```
 
-2. **Configure Secrets** in GitHub or Terraform Cloud:
+2. **Configure Secrets** in GitHub:
 
 - `EMAIL_ADDRESS` — For monitoring alerts  
 - `TFSEC_GITHUB_TOKEN` — For tfsec security scanning  
@@ -89,7 +89,7 @@ Run:
 terraform init
 ```
 
-> Update `providers.tf` with your organization and workspace if needed:
+> Update `providers.tf` with your organization and workspace:
 
 ```hcl
 terraform {
@@ -130,7 +130,8 @@ terraform apply tfplan
 
 All sensitive credentials are stored securely in GitHub Secrets or Terraform Cloud variables:
 
-- `EMAIL_ADDRESS` 
+- `EMAIL_ADDRESS`
+- `PUBLIC_IP_ADDRESS`
 - `TFSEC_GITHUB_TOKEN`  
 - `TF_API_TOKEN`  
 - `SSH_PUBLIC_KEY`  

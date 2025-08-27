@@ -91,7 +91,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "vm_availability_alert
   window_duration      = local.window_size_of_metric_alerts
   evaluation_frequency = local.frequency_of_metric_alerts
 
-  scopes = [azurerm_log_analytics_workspace.prod_monitoring.id]
+  scopes = [var.vm_id]
 
   criteria {
     query = <<KQL

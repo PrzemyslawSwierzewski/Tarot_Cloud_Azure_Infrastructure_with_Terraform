@@ -1,11 +1,9 @@
 output "vm_id" {
-  value = azurerm_linux_virtual_machine.tarot_cloud_linux_VM.id
+  description = "The ID of the Linux virtual machine"
+  value       = azurerm_linux_virtual_machine.tarot_cloud_linux_vm.id
 }
 
 output "vm_name" {
-  value = azurerm_linux_virtual_machine.tarot_cloud_linux_VM.name
-}
-
-output "vm_identity" {
-  value = azurerm_linux_virtual_machine.tarot_cloud_linux_VM.identity[0].principal_id
+  description = "The name of the Linux virtual machine"
+  value       = azurerm_linux_virtual_machine.tarot_cloud_linux_vm.name
 }

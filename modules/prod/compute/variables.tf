@@ -1,3 +1,15 @@
+variable "vm_name" {
+  type        = string
+  description = "Base name for the virtual machine"
+  default     = "tarot-cloud-vm"
+}
+
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev/prod)"
+  default     = "Production"
+}
+
 variable "tarot_cloud_nic" {
   type        = list(string)
   description = "The network interface IDs for the virtual machines"
@@ -21,14 +33,8 @@ variable "admin_username" {
 
 variable "ssh_public_key" {
   type        = string
-  description = "ssh_public_key from HCP terraform cloud"
-  default     = "" # if env is cloud it will override it
-}
-
-variable "env" {
-  type        = string
-  description = "Environment type"
-  default     = "local" # local or cloud, if runned in cloud it will override it
+  description = "SSH public key for the virtual machine"
+  default     = "" # Will be overridden in cloud environments
 }
 
 variable "type_handler_version" {

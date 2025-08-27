@@ -1,5 +1,5 @@
-resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
-  name                  = "${local.vm_name}-${local.environment}"
+resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_vm" {
+  name                  = "${var.vm_name}-${var.environment}"
   resource_group_name   = var.tarot_cloud_rg_name
   location              = var.rg_location
   size                  = local.vm_size
@@ -26,6 +26,6 @@ resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
   custom_data = base64encode(file("${path.module}/cloud-init.tpl"))
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }

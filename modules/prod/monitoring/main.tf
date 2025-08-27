@@ -1,3 +1,4 @@
+# Log Analytics Workspace
 resource "azurerm_log_analytics_workspace" "prod_monitoring" {
   name                = local.log_analytics_workspace_name
   location            = var.rg_location
@@ -10,7 +11,15 @@ resource "azurerm_log_analytics_workspace" "prod_monitoring" {
   }
 }
 
+# Wait for workspace to be fully provisioned
+resource "time_sleep" "wait_for_workspace" {
+  depends_on      = [azurerm_log_analytics_workspace.prod_monitoring]
+  create_duration = "30s"
+}
+
+# Data Collection Rule
 resource "azurerm_monitor_data_collection_rule" "dcr" {
+  depends_on          = [time_sleep.wait_for_workspace]
   name                = "dcr_linux"
   resource_group_name = var.tarot_cloud_rg_name
   location            = var.rg_location
@@ -37,28 +46,42 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
   }
 }
 
+# Diagnostic Setting
 resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" {
-  name                       = local.prod_monitoring_settings_name
-  target_resource_id         = var.vm_id
+  depends_on               = [azurerm_log_analytics_workspace.prod_monitoring]
+  name                      = local.prod_monitoring_settings_name
+  target_resource_id        = var.vm_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.prod_monitoring.id
 
   enabled_metric {
     category = "AllMetrics"
-    }
-
-  depends_on = [
-    azurerm_log_analytics_workspace.prod_monitoring
-  ]
+  }
 }
 
+# DCR Association
 resource "azurerm_monitor_data_collection_rule_association" "dcr_association" {
-  name                    = "DCR-VM-Association"
-  target_resource_id      = var.vm_id
-  data_collection_rule_id = azurerm_monitor_data_collection_rule.dcr.id
-  description             = "Association between the Data Collection Rule and the Linux VM."
+  depends_on               = [azurerm_monitor_data_collection_rule.dcr]
+  name                     = "DCR-VM-Association"
+  target_resource_id       = var.vm_id
+  data_collection_rule_id  = azurerm_monitor_data_collection_rule.dcr.id
+  description              = "Association between the Data Collection Rule and the Linux VM."
 }
 
+# Action Group
+resource "azurerm_monitor_action_group" "alerts" {
+  name                = local.prod_alerts
+  resource_group_name = var.tarot_cloud_rg_name
+  short_name          = local.prod_alerts
+
+  email_receiver {
+    name          = "email_address_for_monitoring"
+    email_address = var.owner_email_address
+  }
+}
+
+# VM Availability Alert
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "vm_availability_alert" {
+  depends_on           = [azurerm_log_analytics_workspace.prod_monitoring]
   name                 = "vm_availability_alert"
   resource_group_name  = var.tarot_cloud_rg_name
   location             = var.rg_location
@@ -69,8 +92,6 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "vm_availability_alert
   evaluation_frequency = local.frequency_of_metric_alerts
 
   scopes = [azurerm_log_analytics_workspace.prod_monitoring.id]
-
-  depends_on = [azurerm_log_analytics_workspace.prod_monitoring]
 
   criteria {
     query = <<KQL
@@ -88,18 +109,6 @@ KQL
 
   action {
     action_groups = [azurerm_monitor_action_group.alerts.id]
-  }
-}
-
-
-resource "azurerm_monitor_action_group" "alerts" {
-  name                = local.prod_alerts
-  resource_group_name = var.tarot_cloud_rg_name
-  short_name          = local.prod_alerts
-
-  email_receiver {
-    name          = "email_address_for_monitoring"
-    email_address = var.owner_email_address
   }
 }
 

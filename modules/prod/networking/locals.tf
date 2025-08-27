@@ -11,6 +11,6 @@ locals {
   tarot_cloud_network_name = "tarot-cloud-network"
   tarot_cloud_nic_name     = "tarot-cloud-nic"
   public_ip_name           = "tarot-cloud-public-ip"
-  environment              = "prod"
+  environment              = "production"
 }
 

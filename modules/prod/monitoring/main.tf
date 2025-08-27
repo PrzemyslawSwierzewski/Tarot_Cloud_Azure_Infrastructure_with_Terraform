@@ -10,35 +10,78 @@ resource "azurerm_log_analytics_workspace" "prod_monitoring" {
   }
 }
 
-resource "azurerm_storage_account" "monitoring" {
-  name                     = local.storage_account_name
-  resource_group_name      = var.tarot_cloud_rg_name
-  location                 = var.rg_location
-  account_tier             = local.SA_account_tier
-  account_replication_type = local.SA_account_replication_type
+resource "azurerm_monitor_data_collection_rule" "dcr" {
+  name                = "dcr_linux"
+  resource_group_name = var.tarot_cloud_rg_name
+  location            = var.rg_location
+  kind                = "Linux"
 
-  min_tls_version = "TLS1_2"
+  destinations {
+    log_analytics {
+      workspace_resource_id = azurerm_log_analytics_workspace.prod_monitoring.id
+      name                  = "destination-log"
+    }
 
-  tags = {
-    Environment = local.environment
+    storage_blob {
+      storage_account_id = var.storage_account_id
+      container_name     = var.sa_container_name
+      name               = "destination-storage"
+    }
+  }
+
+  data_flow {
+    streams      = ["Microsoft-Syslog"]
+    destinations = ["destination-log"]
+  }
+
+  data_sources {
+    syslog {
+      facility_names = ["daemon", "syslog"]
+      log_levels     = ["Warning", "Error", "Critical", "Alert", "Emergency"]
+      name           = "datasource-syslog"
+      streams        = ["destination-log"]
+    }
   }
 }
 
-resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" { # to be switched with azure monitor agent for linux machines, it is collecting more informations https://medium.com/@t.costantini89/send-linux-vm-logs-to-an-azure-log-analytics-workspace-using-terraform-and-the-azure-monitor-agent-939d481cc48a
-  name                       = local.prod_monitoring_settings_name
-  target_resource_id         = var.vm_id
-  storage_account_id         = azurerm_storage_account.monitoring.id
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.prod_monitoring.id
+resource "azurerm_monitor_data_collection_rule_association" "dcr_association" {
+  name                    = "DCR-VM-Association"
+  target_resource_id      = var.vm_id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.dcr.id
+  description             = "Association between the Data Collection Rule and the Linux VM."
+}
 
-  enabled_metric {
-    category = "AllMetrics"
+resource "azurerm_monitor_scheduled_query_rules_alert_v2" "heartbeat_alert" {
+  name                 = "vm_heartbeat_alert"
+  resource_group_name  = var.tarot_cloud_rg_name
+  location             = var.rg_location
+  description          = "Alert if Linux VM stops sending heartbeat"
+  severity             = 1
+  enabled              = true
+  window_duration      = local.window_size_of_metric_alerts # Check last 5 minutes
+  evaluation_frequency = local.frequency_of_metric_alerts   # Evaluate every 1 minute
+
+  scopes = [azurerm_log_analytics_workspace.prod_monitoring.id]
+
+  criteria {
+    query = <<KQL
+  Heartbeat
+  | where Computer == "${var.vm_name}"
+  | summarize LastHeartbeat = max(TimeGenerated)
+  | extend MinutesSinceLast = datetime_diff('minute', now(), LastHeartbeat)
+  | where MinutesSinceLast > 5
+  KQL
+
+    time_aggregation_method = "Average"
+    operator                = "GreaterThan"
+    threshold               = 0
   }
 
-  depends_on = [
-    azurerm_storage_account.monitoring,
-    azurerm_log_analytics_workspace.prod_monitoring
-  ]
+  action {
+    action_groups = [azurerm_monitor_action_group.alerts.id]
+  }
 }
+
 
 resource "azurerm_monitor_action_group" "alerts" {
   name                = local.prod_alerts

@@ -34,3 +34,11 @@ variable "alert_severity_memory" {
   type    = number
   default = 1
 }
+
+variable "storage_account_id" {
+    type = string
+}
+
+variable "sa_container_name" {
+    type = string
+}

@@ -101,7 +101,7 @@ AzureMetrics
 | summarize LatestTotal = arg_max(TimeGenerated, Total)
 KQL
 
-    time_aggregation_method = "Average"
+    time_aggregation_method = "Minimum"
     metric_measure_column   = "Total"
     operator                = "LessThan"
     threshold               = 1

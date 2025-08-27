@@ -43,28 +43,15 @@ This project provisions a **modular Azure environment** using Terraform and demo
 - Azure Monitor Agent (AMA) installed on Linux VMs
 - Log Analytics workspace for centralized logs and metrics
 - Storage account for diagnostics and monitoring data
+- Logs collected:
+  - Syslog from Linux VMs:
+    - Facilities: AUTH, DAEMON, SYSLOG
+    - Severities: Warning, Error, Critical, Alert, Emergency
 - Metric alerts:
   - CPU > 90%
   - Memory < 400MB
-  - VM heartbeat missing
+  - VM availability missing
 - Email notifications via Azure Monitor Action Group
-
-#### Storage & IAM (Prod only)
-1. **Storage Account**
-   - Account: `storageaccountforprodmon` (Standard LRS)
-   - Container: `monitoringcontainer` – private, for monitoring logs
-
-2. **IAM Role Assignment**
-   - Role: `Storage Blob Data Contributor`
-   - Assigned to the VM’s managed identity to write logs to the storage account, without requiring the container to be publicly accessible.
-
-3. **Storage Account (repeated for clarity)**
-   - Account: `storageaccountforprodmon` (Standard LRS)
-   - Container: `monitoringcontainer` – private, for monitoring logs
-
-4. **IAM Role Assignment (repeated for clarity)**
-   - Role: `Storage Blob Data Contributor`
-   - Assigned to a principal (likely the VM’s managed identity) to write logs into the storage account
 
 ---
 
@@ -158,15 +145,15 @@ All sensitive credentials are stored securely in GitHub Secrets or Terraform Clo
 
 ## 🏗 Best Practices Implemented
 
-- Modular design: compute, networking, security  
-- Multi-environment: Dev & Prod  
-- Automated CI/CD with GitHub Actions + Terraform Cloud  
-- Security scanning integrated with tfsec  
-- Centralized Terraform state management  
-- Sensitive variables stored securely  
-- Cross-module outputs for reusable references  
-- Production-grade monitoring and alerts  
-- Separation of concerns and reusable locals for consistent naming  
+- **Modular design**: compute, networking, monitoring, and security split into reusable modules  
+- **Multi-environment support**: Dev & Prod with consistent patterns  
+- **Automated CI/CD**: GitHub Actions + Terraform Cloud for deployment pipelines  
+- **Security scanning**: integrated with tfsec and best-practice policies  
+- **Centralized state management**: Terraform Cloud backend with locking enabled  
+- **Secrets management**: sensitive variables stored securely in environment variables / key vault  
+- **Cross-module outputs**: shared values exposed for easy reuse between modules  
+- **Observability & monitoring**: Log Analytics, Azure Monitor Agent, syslog ingestion, metric + query-based alerts  
+- **Separation of concerns**: consistent naming via reusable locals and isolated module responsibilities  
 
 ---
 

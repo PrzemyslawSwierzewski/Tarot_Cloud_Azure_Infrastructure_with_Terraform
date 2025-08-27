@@ -21,7 +21,7 @@ variable "owner_email_address" {
 
 variable "vm_memory_bytes" {
   type        = number
-  description = "Total VM memory in bytes (for memory alert threshold)"
+  description = "Total prod VM memory in bytes (for memory alert threshold)"
   default     = 4000000000
 }
 
@@ -33,12 +33,4 @@ variable "alert_severity_cpu" {
 variable "alert_severity_memory" {
   type    = number
   default = 1
-}
-
-variable "storage_account_id" {
-    type = string
-}
-
-variable "sa_container_name" {
-    type = string
 }

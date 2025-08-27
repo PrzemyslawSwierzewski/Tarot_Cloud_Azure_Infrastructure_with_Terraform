@@ -2,8 +2,8 @@ locals {
   resource_group_name_dev  = "Tarot-cloud-dev"
   rg_location              = "East US"
   resource_group_name_prod = "Tarot-cloud-prod"
-  prod_environment        = "Production"
-  dev_environment         = "Development"
+  prod_environment         = "Production"
+  dev_environment          = "Development"
   environments = {
     dev = {
       rg_name    = local.resource_group_name_dev

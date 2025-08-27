@@ -48,7 +48,7 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
 
 # Diagnostic Setting
 resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" {
-  depends_on                = [azurerm_log_analytics_workspace.prod_monitoring]
+  depends_on                 = [azurerm_log_analytics_workspace.prod_monitoring]
   name                       = local.prod_monitoring_settings_name
   target_resource_id         = var.vm_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.prod_monitoring.id
@@ -61,10 +61,10 @@ resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" {
 # DCR Association
 resource "azurerm_monitor_data_collection_rule_association" "dcr_association" {
   depends_on              = [azurerm_monitor_data_collection_rule.dcr]
-  name                     = "dcr_${var.vm_name}_association"
-  target_resource_id       = var.vm_id
-  data_collection_rule_id  = azurerm_monitor_data_collection_rule.dcr.id
-  description              = "Association between the Data Collection Rule and the Linux VM."
+  name                    = "dcr_${var.vm_name}_association"
+  target_resource_id      = var.vm_id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.dcr.id
+  description             = "Association between the Data Collection Rule and the Linux VM."
 }
 
 # Action Group

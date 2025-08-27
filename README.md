@@ -49,6 +49,23 @@ This project provisions a **modular Azure environment** using Terraform and demo
   - VM heartbeat missing
 - Email notifications via Azure Monitor Action Group
 
+#### Storage & IAM (Prod only)
+1. **Storage Account**
+   - Account: `storageaccountforprodmon` (Standard LRS)
+   - Container: `monitoringcontainer` – private, for monitoring logs
+
+2. **IAM Role Assignment**
+   - Role: `Storage Blob Data Contributor`
+   - Assigned to the VM’s managed identity to write logs to the storage account, without requiring the container to be publicly accessible.
+
+3. **Storage Account (repeated for clarity)**
+   - Account: `storageaccountforprodmon` (Standard LRS)
+   - Container: `monitoringcontainer` – private, for monitoring logs
+
+4. **IAM Role Assignment (repeated for clarity)**
+   - Role: `Storage Blob Data Contributor`
+   - Assigned to a principal (likely the VM’s managed identity) to write logs into the storage account
+
 ---
 
 ## 🔄 CI/CD & Automation
@@ -150,6 +167,20 @@ All sensitive credentials are stored securely in GitHub Secrets or Terraform Clo
 - Cross-module outputs for reusable references  
 - Production-grade monitoring and alerts  
 - Separation of concerns and reusable locals for consistent naming  
+
+---
+
+## 💰 Cost Awareness
+
+This project provisions multiple Azure resources that may incur **ongoing costs**. Key points to consider:
+
+- **Virtual Machines**: Running multiple Linux VMs in Dev and Prod can generate significant charges. Consider using smaller VM sizes in Dev or stopping them when not in use.
+- **Public IPs**: Static public IPs incur a monthly fee. Use dynamic IPs for Dev if static IPs are not required.
+- **Storage**: OS disks (Standard LRS) and monitoring storage can accumulate costs depending on usage and retention period.
+- **Monitoring & Alerts**: Azure Monitor and Log Analytics may generate charges based on data ingestion and retention. Limit retention or adjust metrics collection for cost control.
+- **Networking**: VNet and NSGs are free, but data egress may result in charges if traffic leaves the Azure region.
+
+**Tip:** Monitor your subscription with [Azure Cost Management](https://azure.microsoft.com/en-us/services/cost-management/) and delete resources when not needed to avoid unexpected costs.
 
 ---
 

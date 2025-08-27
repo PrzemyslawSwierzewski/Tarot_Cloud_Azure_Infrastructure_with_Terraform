@@ -25,6 +25,10 @@ resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
 
   custom_data = base64encode(file("${path.module}/cloud-init.tpl"))
 
+  identity {
+    type = "SystemAssigned"
+  }
+
   tags = {
     Environment = local.environment
   }

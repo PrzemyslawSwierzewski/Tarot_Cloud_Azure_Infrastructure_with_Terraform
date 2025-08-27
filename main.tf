@@ -90,7 +90,7 @@ module "prod_monitoring" {
   owner_email_address = var.owner_email_address
   vm_name             = module.prod_compute.vm_name
   storage_account_id  = module.prod_storage.storage_account_id
-  sa_container_name    = module.prod_storage.sa_container_name
+  sa_container_name   = module.prod_storage.sa_container_name
 
   depends_on = [azurerm_resource_group.tarot_cloud_rg_prod, module.prod_compute]
 }

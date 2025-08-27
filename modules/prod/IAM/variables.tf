@@ -1,7 +1,7 @@
 variable "tarot_cloud_rg_name" {
   type        = string
   description = "The name of the resource group where resources will be deployed"
-} 
+}
 
 variable "rg_location" {
   type        = string
@@ -21,5 +21,5 @@ variable "vm_id" {
 }
 
 variable "storage_account_id" {
-    type = string
+  type = string
 }

@@ -39,6 +39,6 @@ resource "azurerm_virtual_machine_extension" "ama_linux" {
   virtual_machine_id         = azurerm_linux_virtual_machine.tarot_cloud_linux_VM.id
   publisher                  = "Microsoft.Azure.Monitor"
   type                       = local.AzureMonitorLinuxAgent
-  type_handler_version       = "*"
+  type_handler_version       = var.type_handler_version
   auto_upgrade_minor_version = true
 }

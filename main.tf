@@ -89,29 +89,6 @@ module "prod_monitoring" {
   vm_id               = module.prod_compute.vm_id
   owner_email_address = var.owner_email_address
   vm_name             = module.prod_compute.vm_name
-  storage_account_id  = module.prod_storage.storage_account_id
-  sa_container_name   = module.prod_storage.sa_container_name
 
   depends_on = [azurerm_resource_group.tarot_cloud_rg_prod, module.prod_compute]
-}
-
-module "prod_IAM" {
-  source = "./modules/prod/IAM"
-
-  tarot_cloud_rg_name = local.resource_group_name_prod
-  rg_location         = local.rg_location
-  vm_id               = module.prod_compute.vm_id
-  vm_identity         = module.prod_compute.vm_identity
-  storage_account_id  = module.prod_storage.storage_account_id
-
-  depends_on = [module.prod_compute]
-}
-
-module "prod_storage" {
-  source = "./modules/prod/storage"
-
-  tarot_cloud_rg_name = local.resource_group_name_prod
-  rg_location         = local.rg_location
-
-  depends_on = [azurerm_resource_group.tarot_cloud_rg_prod]
 }

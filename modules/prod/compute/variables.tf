@@ -30,3 +30,9 @@ variable "env" {
   description = "Environment type"
   default     = "local" # local or cloud, if runned in cloud it will override it
 }
+
+variable "type_handler_version" {
+  type        = string
+  description = "The version of the VM extension handler"
+  default     = "1.13"
+}

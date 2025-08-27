@@ -1,7 +1,4 @@
 locals {
-  network_security_group_name = "tarot-cloud-nsg"
-  environment                 = "dev"
-  my_public_ip_address        = var.my_public_ip_address
   security_rules = {
     Inbound = {
       Allow80port = {

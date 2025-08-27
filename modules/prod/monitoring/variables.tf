@@ -14,6 +14,12 @@ variable "vm_name" {
   type = string
 }
 
+variable "environment" {
+  type        = string
+  description = "Deployment environment (dev/prod)"
+  default     = "Production"
+}
+
 variable "owner_email_address" {
   type        = string
   description = "Email address of the subscription owner"

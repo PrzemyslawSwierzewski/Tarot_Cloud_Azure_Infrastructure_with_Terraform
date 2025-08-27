@@ -1,5 +1,5 @@
-resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
-  name                  = "${local.vm_name}-${local.environment}"
+resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_vm" {
+  name                  = "${var.vm_name}-${var.environment}"
   resource_group_name   = var.tarot_cloud_rg_name
   location              = var.rg_location
   size                  = local.vm_size
@@ -30,15 +30,15 @@ resource "azurerm_linux_virtual_machine" "tarot_cloud_linux_VM" {
   }
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }
 
 resource "azurerm_virtual_machine_extension" "ama_linux" {
-  name                       = local.AzureMonitorLinuxAgent
-  virtual_machine_id         = azurerm_linux_virtual_machine.tarot_cloud_linux_VM.id
+  name                       = local.azure_monitor_linux_agent
+  virtual_machine_id         = azurerm_linux_virtual_machine.tarot_cloud_linux_vm.id
   publisher                  = "Microsoft.Azure.Monitor"
-  type                       = local.AzureMonitorLinuxAgent
+  type                       = local.azure_monitor_linux_agent
   type_handler_version       = var.type_handler_version
   auto_upgrade_minor_version = true
 }

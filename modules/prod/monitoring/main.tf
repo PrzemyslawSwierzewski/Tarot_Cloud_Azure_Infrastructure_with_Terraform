@@ -7,7 +7,7 @@ resource "azurerm_log_analytics_workspace" "prod_monitoring" {
   retention_in_days   = local.log_analytics_workspace_retention_in_days
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }
 
@@ -20,7 +20,7 @@ resource "time_sleep" "wait_for_workspace" {
 # Data Collection Rule
 resource "azurerm_monitor_data_collection_rule" "dcr" {
   depends_on          = [time_sleep.wait_for_workspace]
-  name                = "dcr_linux"
+  name                = "dcr_${var.vm_name}"
   resource_group_name = var.tarot_cloud_rg_name
   location            = var.rg_location
 
@@ -48,9 +48,9 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
 
 # Diagnostic Setting
 resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" {
-  depends_on               = [azurerm_log_analytics_workspace.prod_monitoring]
-  name                      = local.prod_monitoring_settings_name
-  target_resource_id        = var.vm_id
+  depends_on                = [azurerm_log_analytics_workspace.prod_monitoring]
+  name                       = local.prod_monitoring_settings_name
+  target_resource_id         = var.vm_id
   log_analytics_workspace_id = azurerm_log_analytics_workspace.prod_monitoring.id
 
   enabled_metric {
@@ -60,8 +60,8 @@ resource "azurerm_monitor_diagnostic_setting" "prod_monitoring" {
 
 # DCR Association
 resource "azurerm_monitor_data_collection_rule_association" "dcr_association" {
-  depends_on               = [azurerm_monitor_data_collection_rule.dcr]
-  name                     = "DCR-VM-Association"
+  depends_on              = [azurerm_monitor_data_collection_rule.dcr]
+  name                     = "dcr_${var.vm_name}_association"
   target_resource_id       = var.vm_id
   data_collection_rule_id  = azurerm_monitor_data_collection_rule.dcr.id
   description              = "Association between the Data Collection Rule and the Linux VM."
@@ -82,7 +82,7 @@ resource "azurerm_monitor_action_group" "alerts" {
 # VM Availability Alert
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "vm_availability_alert" {
   depends_on           = [azurerm_log_analytics_workspace.prod_monitoring]
-  name                 = "vm_availability_alert"
+  name                 = "vm_availability_alert_${var.vm_name}"
   resource_group_name  = var.tarot_cloud_rg_name
   location             = var.rg_location
   description          = "Alert if Linux VM becomes unavailable"

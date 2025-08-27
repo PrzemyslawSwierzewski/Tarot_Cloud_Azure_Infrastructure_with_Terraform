@@ -1,16 +1,16 @@
 resource "azurerm_virtual_network" "tarot_cloud_vnet" {
-  name                = "${local.tarot_cloud_network_name}-${local.environment}"
+  name                = "${var.vnet_name}-${var.environment}"
   address_space       = [local.vnet.vnet1.address_space]
-  location            = local.resources_location
+  location            = var.rg_location
   resource_group_name = var.tarot_cloud_rg_name
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }
 
 resource "azurerm_subnet" "tarot_cloud_subnet" {
-  name                 = "${local.tarot_cloud_subnet_name}-${local.environment}"
+  name                 = "${var.subnet_name}-${var.environment}"
   resource_group_name  = var.tarot_cloud_rg_name
   virtual_network_name = azurerm_virtual_network.tarot_cloud_vnet.name
   address_prefixes     = [local.vnet.vnet1.subnet_prefix]
@@ -21,9 +21,9 @@ resource "azurerm_subnet" "tarot_cloud_subnet" {
 }
 
 resource "azurerm_public_ip" "tarot_cloud_public_ip" {
-  name                = "${local.public_ip_name}-${local.environment}"
+  name                = "${var.public_ip_name}-${var.environment}"
   resource_group_name = var.tarot_cloud_rg_name
-  location            = local.resources_location
+  location            = var.rg_location
   allocation_method   = "Static"
 
   depends_on = [
@@ -31,13 +31,13 @@ resource "azurerm_public_ip" "tarot_cloud_public_ip" {
   ]
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }
 
 resource "azurerm_network_interface" "tarot_cloud_nic" {
-  name                = "${local.tarot_cloud_nic_name}-${local.environment}"
-  location            = local.resources_location
+  name                = "${var.nic_name}-${var.environment}"
+  location            = var.rg_location
   resource_group_name = var.tarot_cloud_rg_name
 
   ip_configuration {
@@ -53,6 +53,6 @@ resource "azurerm_network_interface" "tarot_cloud_nic" {
   ]
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }

@@ -1,5 +1,5 @@
 resource "azurerm_network_security_group" "tarot_cloud_nsg" {
-  name                = "${local.network_security_group_name}-${local.environment}"
+  name                = "${var.nsg_name}-${var.environment}"
   location            = var.rg_location
   resource_group_name = var.tarot_cloud_rg_name
 
@@ -19,12 +19,11 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
   }
 
   tags = {
-    Environment = local.environment
+    Environment = var.environment
   }
 }
 
 resource "azurerm_subnet_network_security_group_association" "tarot_cloud_assoc" {
-
   subnet_id                 = var.subnets[0]
   network_security_group_id = azurerm_network_security_group.tarot_cloud_nsg.id
 

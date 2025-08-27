@@ -98,11 +98,11 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "vm_availability_alert
 AzureMetrics
 | where MetricName == "VmAvailabilityMetric"
 | where Resource == "${var.vm_name}"
-| summarize AvgAvailability = avg(Total)
+| summarize Average = avg(Total)
 KQL
 
     time_aggregation_method = "Average"
-    metric_measure_column   = "AvgAvailability"
+    metric_measure_column   = "Average"
     operator                = "LessThan"
     threshold               = 1
   }

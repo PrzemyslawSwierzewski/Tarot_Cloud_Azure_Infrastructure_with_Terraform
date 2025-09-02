@@ -2,7 +2,8 @@
 
 This project provisions a **modular Azure environment** using Terraform and demonstrates **Infrastructure as Code (IaC)** best practices. It is designed as a production-like setup with full DevOps automation and security.
 
-<img width="1766" height="1120" alt="Tarot-cloud-architecture" src="https://github.com/user-attachments/assets/ec1a153d-cd18-44a0-ac47-6885e5544fc8" />
+<img width="1779" height="1593" alt="infra diagram" src="https://github.com/user-attachments/assets/19e45d1c-964c-41db-9a0e-1c15e26caa1c" />
+
 
 ---
 

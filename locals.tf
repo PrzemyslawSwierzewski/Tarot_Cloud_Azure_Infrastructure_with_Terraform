@@ -9,13 +9,11 @@ locals {
       rg_name    = local.resource_group_name_dev
       module_dir = "./modules/dev"
       env_tag    = local.dev_environment
-      monitoring = false
     }
     prod = {
       rg_name    = local.resource_group_name_prod
       module_dir = "./modules/prod"
       env_tag    = local.prod_environment
-      monitoring = true
     }
   }
 }

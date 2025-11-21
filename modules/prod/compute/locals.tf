@@ -1,5 +1,5 @@
 locals {
-  vm_size                   = "Standard_D2ds_v4"
+  vm_size                   = "Standard_b1s"
   os_disk_caching           = "ReadWrite"
   os_disk_storage_type      = "Standard_LRS"
   image_publisher           = "Canonical"

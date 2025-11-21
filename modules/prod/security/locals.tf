@@ -46,7 +46,7 @@ locals {
         source_port_range          = "*"
         destination_port_range     = "*"
         source_address_prefix      = "*"
-        destination_address_prefix = "Internet"
+        destination_address_prefix = "*" // To be replaced with "Internet" as right now I'm checking if trivy works
       }
       Allow80port = {
         name                       = "Allow80"

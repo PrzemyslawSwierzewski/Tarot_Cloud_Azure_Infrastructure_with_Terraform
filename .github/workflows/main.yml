@@ -52,7 +52,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Format
-      run: terraform fmt -check /r
+      run: terraform fmt -check -recursive
 
     - name: Terraform Plan
       run: |

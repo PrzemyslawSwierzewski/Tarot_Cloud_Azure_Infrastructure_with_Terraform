@@ -1,9 +1,9 @@
 terraform {
   backend "remote" {
-    organization = "personal-org-prem"
+    organization = "Prem_learning_org"
 
     workspaces {
-      name = "tarot-cloud"
+      name = "tarot-cloud-project"
     }
   }
   required_providers {

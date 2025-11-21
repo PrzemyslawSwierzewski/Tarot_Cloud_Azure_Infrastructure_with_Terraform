@@ -4,7 +4,7 @@ locals {
   os_disk_storage_type      = "Standard_LRS"
   image_publisher           = "Canonical"
   image_offer               = "0001-com-ubuntu-server-jammy"
-  image_sku                 = "22_04-lts"
+  image_sku                 = "22_04-lts-gen2"
   image_version             = "latest"
   azure_monitor_linux_agent = "AzureMonitorLinuxAgent"
 }

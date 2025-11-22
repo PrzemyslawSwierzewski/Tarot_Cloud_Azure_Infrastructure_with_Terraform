@@ -51,8 +51,8 @@ resource "azurerm_lb" "vmss_lb" {
 }
 
 resource "azurerm_lb_backend_address_pool" "backend_pool" {
-  loadbalancer_id    = azurerm_lb.vmss_lb.id
-  name               = "BackEndAddressPool"
+  loadbalancer_id = azurerm_lb.vmss_lb.id
+  name            = "BackEndAddressPool"
 }
 
 resource "azurerm_lb_probe" "http" {

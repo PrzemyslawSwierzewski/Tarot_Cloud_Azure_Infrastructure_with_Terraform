@@ -35,24 +35,41 @@ resource "azurerm_public_ip" "tarot_cloud_public_ip" {
   }
 }
 
-resource "azurerm_network_interface" "tarot_cloud_nic" {
-  name                = "${local.tarot_cloud_nic_name}-${local.environment}"
+resource "azurerm_lb" "vmss_lb" {
+  name                = "TestLoadBalancer"
   location            = local.resources_location
   resource_group_name = var.tarot_cloud_rg_name
 
-  ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.tarot_cloud_subnet.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.tarot_cloud_public_ip.id
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.tarot_cloud_public_ip.id
   }
-
-  depends_on = [
-    azurerm_subnet.tarot_cloud_subnet,
-    azurerm_public_ip.tarot_cloud_public_ip
-  ]
 
   tags = {
     Environment = local.environment
   }
+}
+
+resource "azurerm_lb_backend_address_pool" "backend_pool" {
+  loadbalancer_id    = azurerm_lb.vmss_lb.id
+  name               = "BackEndAddressPool"
+  virtual_network_id = azurerm_virtual_network.tarot_cloud_vnet.id
+}
+
+resource "azurerm_lb_probe" "http" {
+  loadbalancer_id = azurerm_lb.vmss_lb.id
+  name            = "http-probe"
+  protocol        = "Tcp"
+  port            = 80
+}
+
+resource "azurerm_lb_rule" "http" {
+  loadbalancer_id                = azurerm_lb.vmss_lb.id
+  name                           = "http"
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  frontend_ip_configuration_name = "PublicIPAddress"
+  backend_address_pool_ids       = [azurerm_lb_backend_address_pool.backend_pool.id]
+  probe_id                       = azurerm_lb_probe.http.id
 }

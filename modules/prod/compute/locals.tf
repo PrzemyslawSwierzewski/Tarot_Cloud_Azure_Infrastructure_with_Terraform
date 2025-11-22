@@ -7,4 +7,7 @@ locals {
   image_sku                 = "22_04-lts-gen2"
   image_version             = "latest"
   azure_monitor_linux_agent = "AzureMonitorLinuxAgent"
+  tarot_cloud_nic_name      = "tarot-cloud-nic"
+  vmss_instance_count       = 3
+  environment               = "Production"
 }

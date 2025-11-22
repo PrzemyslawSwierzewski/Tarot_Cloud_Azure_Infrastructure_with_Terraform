@@ -56,8 +56,11 @@ module "prod_compute" {
   source              = "./modules/prod/compute"
   tarot_cloud_rg_name = local.resource_group_name_prod
   rg_location         = local.rg_location
-  tarot_cloud_nic     = module.prod_networking.tarot_cloud_nic
+  //tarot_cloud_nic     = module.prod_networking.tarot_cloud_nic
   ssh_public_key      = var.ssh_public_key
+  subnet_id           = module.prod_networking.tarot_cloud_subnet_ids[0]
+  backend_pool_ids    = module.prod_networking.backend_pool
+  owner_email_address = var.owner_email_address
 
   depends_on = [module.prod_networking]
 }
@@ -79,9 +82,9 @@ module "prod_monitoring" {
   source              = "./modules/prod/monitoring"
   tarot_cloud_rg_name = local.resource_group_name_prod
   rg_location         = local.rg_location
-  vm_id               = module.prod_compute.vm_id
+  vmss_id             = module.prod_compute.vmss_id
   owner_email_address = var.owner_email_address
-  vm_name             = module.prod_compute.vm_name
+  vmss_name           = module.prod_compute.vmss_name
 
   depends_on = [
     azurerm_resource_group.tarot_cloud_rg["prod"],

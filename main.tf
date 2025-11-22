@@ -57,9 +57,9 @@ module "prod_compute" {
   tarot_cloud_rg_name = local.resource_group_name_prod
   rg_location         = local.rg_location
   //tarot_cloud_nic     = module.prod_networking.tarot_cloud_nic
-  ssh_public_key   = var.ssh_public_key
-  subnet_id        = module.prod_networking.tarot_cloud_subnet_ids[0]
-  backend_pool_ids = module.prod_networking.backend_pool
+  ssh_public_key      = var.ssh_public_key
+  subnet_id           = module.prod_networking.tarot_cloud_subnet_ids[0]
+  backend_pool_ids    = module.prod_networking.backend_pool
   owner_email_address = var.owner_email_address
 
   depends_on = [module.prod_networking]

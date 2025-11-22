@@ -2,7 +2,8 @@
 
 This project provisions a **modular Azure environment** using Terraform and demonstrates **Infrastructure as Code (IaC)** best practices. It is designed as a production-like setup with full DevOps automation and security.
 
-<img width="1779" height="1593" alt="infra diagram" src="https://github.com/user-attachments/assets/19e45d1c-964c-41db-9a0e-1c15e26caa1c" />
+
+<img width="2239" height="1947" alt="diagram-export-22 11 2025-16_18_19" src="https://github.com/user-attachments/assets/d5c097cb-080b-4dfe-9783-1c0d65c180fd" />
 
 
 ---

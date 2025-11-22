@@ -36,7 +36,7 @@ resource "azurerm_public_ip" "tarot_cloud_public_ip" {
 }
 
 resource "azurerm_lb" "vmss_lb" {
-  name                = "TestLoadBalancer"
+  name                = "ProdLoadBalancer"
   location            = local.resources_location
   resource_group_name = var.tarot_cloud_rg_name
 

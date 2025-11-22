@@ -26,24 +26,25 @@ This project provisions a **modular Azure environment** using Terraform and demo
 - Linux Virtual Machines (Ubuntu 22.04 LTS)
 - Dev and Prod environments with SSH key authentication
 - Cloud-init provisioning for automated setup
+- Virtual Machine Scale Sets (VMSS) for Prod, integrated with Azure Load Balancer
 - Standardized OS disks with LRS storage
 
 ### Networking Module
 - Virtual Networks with multiple subnets
 - Network Interfaces and Public IPs for each VM
-- NSGs with inbound rules (SSH, HTTP, HTTPS) and outbound allow-all
+- NSGs with inbound rules (SSH, HTTP, HTTPS) and outbound to Internet
 - NSG-to-subnet associations automated
+- Azure Load Balancer with backend pool and health probes configured for VMSS
 
 ### Security & Best Practices
 - Network Security Groups per environment
-- Security scanning via **tfsec** integrated into GitHub Actions
+- Security scanning via **Trivy** integrated into GitHub Actions
 - Secrets securely stored in GitHub Secrets
 - Separation of concerns for modularity and reusability
 
 ### Monitoring & Observability (Prod)
 - Azure Monitor Agent (AMA) installed on Linux VMs
 - Log Analytics workspace for centralized logs and metrics
-- Storage account for diagnostics and monitoring data
 - Logs collected:
   - Syslog from Linux VMs:
     - Facilities: AUTH, DAEMON, SYSLOG
@@ -147,9 +148,10 @@ All sensitive credentials are stored securely in GitHub Secrets or Terraform Clo
 ## 🏗 Best Practices Implemented
 
 - **Modular design**: compute, networking, monitoring, and security split into reusable modules  
-- **Multi-environment support**: Dev & Prod with consistent patterns  
+- **Multi-environment support**: Dev & Prod with consistent patterns
+- **Virtual Machine Scale Sets** integrated with Load Balancer
 - **Automated CI/CD**: GitHub Actions + Terraform Cloud for deployment pipelines  
-- **Security scanning**: integrated with tfsec and best-practice policies  
+- **Security scanning**: integrated with trivy and best-practice policies  
 - **Centralized state management**: Terraform Cloud backend with locking enabled  
 - **Secrets management**: sensitive variables stored securely in environment variables / key vault  
 - **Cross-module outputs**: shared values exposed for easy reuse between modules  

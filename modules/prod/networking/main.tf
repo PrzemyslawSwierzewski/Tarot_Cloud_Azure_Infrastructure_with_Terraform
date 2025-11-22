@@ -53,7 +53,6 @@ resource "azurerm_lb" "vmss_lb" {
 resource "azurerm_lb_backend_address_pool" "backend_pool" {
   loadbalancer_id    = azurerm_lb.vmss_lb.id
   name               = "BackEndAddressPool"
-  virtual_network_id = azurerm_virtual_network.tarot_cloud_vnet.id
 }
 
 resource "azurerm_lb_probe" "http" {

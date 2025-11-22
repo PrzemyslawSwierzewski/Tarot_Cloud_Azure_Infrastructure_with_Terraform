@@ -60,6 +60,7 @@ module "prod_compute" {
   ssh_public_key   = var.ssh_public_key
   subnet_id        = module.prod_networking.tarot_cloud_subnet_ids[0]
   backend_pool_ids = module.prod_networking.backend_pool
+  owner_email_address = var.owner_email_address
 
   depends_on = [module.prod_networking]
 }

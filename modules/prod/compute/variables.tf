@@ -41,3 +41,8 @@ variable "backend_pool_ids" {
   type        = list(string)
   description = "The backend address pool IDs for the load balancer"
 }
+
+variable "owner_email_address" {
+  type        = string
+  description = "Email address of the subscription owner"
+}

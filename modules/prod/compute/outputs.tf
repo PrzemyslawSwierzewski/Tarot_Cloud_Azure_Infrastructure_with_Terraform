@@ -1,9 +1,9 @@
-output "vm_id" {
-  description = "The ID of the Linux virtual machine"
-  value       = azurerm_linux_virtual_machine.tarot_cloud_linux_vm.id
+output "vmss_id" {
+  description = "The ID of the Linux virtual machine scale set"
+  value       = azurerm_linux_virtual_machine_scale_set.tarot_cloud_linux_vmss.id
 }
 
-output "vm_name" {
-  description = "The name of the Linux virtual machine"
-  value       = azurerm_linux_virtual_machine.tarot_cloud_linux_vm.name
+output "vmss_name" {
+  description = "The name of the Linux virtual machine scale set"
+  value       = azurerm_linux_virtual_machine_scale_set.tarot_cloud_linux_vmss.name
 }

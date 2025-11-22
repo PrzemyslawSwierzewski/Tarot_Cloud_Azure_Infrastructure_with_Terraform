@@ -6,11 +6,11 @@ variable "rg_location" {
   type = string
 }
 
-variable "vm_id" {
+variable "vmss_id" {
   type = string
 }
 
-variable "vm_name" {
+variable "vmss_name" {
   type = string
 }
 

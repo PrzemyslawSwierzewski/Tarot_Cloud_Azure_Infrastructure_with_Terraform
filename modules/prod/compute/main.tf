@@ -127,7 +127,7 @@ resource "azurerm_monitor_autoscale_setting" "vmss_autoscale" {
     email {
       send_to_subscription_administrator    = true
       send_to_subscription_co_administrator = true
-      custom_emails                         = [var.owner_email_address]
+      custom_emails                         = ["prem@wp.pl"]#this address will receive autoscale notifications
     }
   }
 }

@@ -42,7 +42,7 @@ locals {
         priority                   = 103
         direction                  = "Outbound"
         access                     = "Allow"
-        protocol                   = "*"
+        protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "*"
         source_address_prefix      = "*"
@@ -53,7 +53,7 @@ locals {
         priority                   = 104
         direction                  = "Outbound"
         access                     = "Allow"
-        protocol                   = "*"
+        protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "*"
         source_address_prefix      = "*"

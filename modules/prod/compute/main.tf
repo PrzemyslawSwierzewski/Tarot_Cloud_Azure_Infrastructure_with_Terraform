@@ -82,11 +82,6 @@ resource "azurerm_monitor_autoscale_setting" "vmss_autoscale" {
         threshold          = 75
         metric_namespace   = "microsoft.compute/virtualmachinescalesets"
 
-        dimensions {
-          name     = "AppName"
-          operator = "Equals"
-          values   = ["App1"]
-        }
       }
 
       scale_action {

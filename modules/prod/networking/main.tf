@@ -14,10 +14,6 @@ resource "azurerm_subnet" "tarot_cloud_subnet" {
   resource_group_name  = var.tarot_cloud_rg_name
   virtual_network_name = azurerm_virtual_network.tarot_cloud_vnet.name
   address_prefixes     = [local.vnet.vnet1.subnet_prefix]
-
-  depends_on = [
-    azurerm_virtual_network.tarot_cloud_vnet
-  ]
 }
 
 resource "azurerm_public_ip" "tarot_cloud_public_ip" {
@@ -26,17 +22,13 @@ resource "azurerm_public_ip" "tarot_cloud_public_ip" {
   location            = local.resources_location
   allocation_method   = "Static"
 
-  depends_on = [
-    azurerm_subnet.tarot_cloud_subnet
-  ]
-
   tags = {
     Environment = local.environment
   }
 }
 
 resource "azurerm_lb" "vmss_lb" {
-  name                = "ProdLoadBalancer"
+  name                = "${local.load_balancer_name}-${local.environment}"
   location            = local.resources_location
   resource_group_name = var.tarot_cloud_rg_name
 
@@ -52,19 +44,19 @@ resource "azurerm_lb" "vmss_lb" {
 
 resource "azurerm_lb_backend_address_pool" "backend_pool" {
   loadbalancer_id = azurerm_lb.vmss_lb.id
-  name            = "BackEndAddressPool"
+  name            = local.backend_pool_name
 }
 
 resource "azurerm_lb_probe" "http" {
   loadbalancer_id = azurerm_lb.vmss_lb.id
-  name            = "http-probe"
-  protocol        = "Tcp"
+  name            = local.lb_probe_name
   port            = 80
+  protocol        = "Tcp"
 }
 
 resource "azurerm_lb_rule" "http" {
   loadbalancer_id                = azurerm_lb.vmss_lb.id
-  name                           = "http"
+  name                           = local.lb_rule_name
   protocol                       = "Tcp"
   frontend_port                  = 80
   backend_port                   = 80

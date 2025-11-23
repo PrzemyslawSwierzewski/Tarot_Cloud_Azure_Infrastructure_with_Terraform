@@ -10,5 +10,9 @@ locals {
   tarot_cloud_subnet_name  = "tarot-cloud-subnet"
   tarot_cloud_network_name = "tarot-cloud-network"
   public_ip_name           = "tarot-cloud-public-ip"
+  load_balancer_name       = "tarot-cloud-lb"
+  backend_pool_name        = "tarot-cloud-backend-pool"
+  lb_probe_name            = "http-probe"
+  lb_rule_name             = "http-rule"
   environment              = "production"
 }

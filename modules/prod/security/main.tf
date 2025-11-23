@@ -26,8 +26,4 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
 resource "azurerm_subnet_network_security_group_association" "tarot_cloud_assoc" {
   subnet_id                 = var.subnets[0]
   network_security_group_id = azurerm_network_security_group.tarot_cloud_nsg.id
-
-  depends_on = [
-    azurerm_network_security_group.tarot_cloud_nsg
-  ]
 }

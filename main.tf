@@ -91,3 +91,19 @@ module "prod_monitoring" {
     module.prod_compute
   ]
 }
+
+# Prod-only Postgres Module
+module "prod_postgres" {
+  source                    = "./modules/prod/postgres"
+  tarot_cloud_rg_name       = local.resource_group_name_prod
+  rg_location               = local.rg_location
+  subnet_id                 = module.prod_networking.tarot_cloud_subnet_ids[0]
+  postgresql_admin_password = var.postgresql_admin_password
+  private_dns_zone          = module.prod_networking.private_dns_zone
+  my_public_ip_address      = var.my_public_ip_address
+
+  depends_on = [
+    module.prod_networking,
+    azure_rm_resource_group.tarot_cloud_rg["prod"]
+  ]
+}

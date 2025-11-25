@@ -14,3 +14,9 @@ variable "owner_email_address" {
   type        = string
   description = "Email address of the subscription owner"
 }
+
+variable "postgresql_admin_password" {
+  type        = string
+  description = "The password for the PostgreSQL administrator"
+  sensitive   = true
+}

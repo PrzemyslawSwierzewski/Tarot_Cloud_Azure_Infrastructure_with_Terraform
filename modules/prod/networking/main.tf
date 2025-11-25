@@ -72,8 +72,8 @@ resource "azurerm_private_dns_zone" "dns_zone_for_postgresql_server" {
 
 resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_link" {
   name                  = "postgres-dnszone-${local.environment}-link"
-  private_dns_zone_name = azurerm_private_dns_zone.dns_zone_for_postgresql_serve.name
-  virtual_network_id    = azurerm_virtual_network.tarot_cloud_vnet.name.id
+  private_dns_zone_name = azurerm_private_dns_zone.dns_zone_for_postgresql_server.name
+  virtual_network_id    = azurerm_virtual_network.tarot_cloud_vnet.id
   resource_group_name   = var.tarot_cloud_rg_name
   depends_on            = [azurerm_subnet.tarot_cloud_subnet]
 }

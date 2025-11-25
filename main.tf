@@ -101,6 +101,7 @@ module "prod_postgres" {
   postgresql_admin_password = var.postgresql_admin_password
   private_dns_zone          = module.prod_networking.private_dns_zone
   my_public_ip_address      = var.my_public_ip_address
+  private_dns_zone_id        = module.prod_networking.private_dns_zone_id
 
   depends_on = [
     module.prod_networking,

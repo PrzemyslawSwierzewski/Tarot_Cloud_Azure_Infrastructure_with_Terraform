@@ -27,3 +27,8 @@ variable "my_public_ip_address" {
   type        = string
   description = "The public IP address to allow access to the PostgreSQL server"
 }
+
+variable "private_dns_zone_id" {
+  type        = string
+  description = "The ID of the private DNS zone for PostgreSQL"
+}

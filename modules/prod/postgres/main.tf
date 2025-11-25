@@ -13,7 +13,7 @@ resource "azurerm_postgresql_flexible_server" "tarot_postgresql_server" {
   storage_mb   = 32768
   storage_tier = "P4"
 
-  sku_name   = "B_Standard_B2s"
+  sku_name = "B_Standard_B2s"
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "admin_firewall_rule" {

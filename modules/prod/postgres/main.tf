@@ -4,7 +4,7 @@ resource "azurerm_postgresql_flexible_server" "tarot_postgresql_server" {
   location                      = var.rg_location
   version                       = "17"
   delegated_subnet_id           = var.subnet_id
-  private_dns_zone_id           = var.private_dns_zone.id
+  private_dns_zone_id           = var.private_dns_zone_id
   public_network_access_enabled = false
   administrator_login           = "psqladmin"
   administrator_password        = var.postgresql_admin_password

@@ -19,11 +19,11 @@ jobs:
       TF_VAR_my_public_ip_address: ${{ secrets.MY_PUBLIC_IP_ADDRESS }}
       TF_VAR_ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
       TF_VAR_arm_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      TF_VAR_postgresql_admin_password: ${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-      postgresql_admin_password: ${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}
 
     steps:
     - name: Checkout
@@ -57,15 +57,9 @@ jobs:
 
     - name: Terraform Plan
       run: |
-        terraform plan -input=false \
-        -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" \
-        -var "owner_email_address=${{ secrets.EMAIL_ADDRESS }}"\
-        -var "postgresql_admin_password=${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}"
+        terraform plan -input=false
 
     - name: Terraform Apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: | 
-        terraform apply -auto-approve -input=false \
-        -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" \
-        -var "owner_email_address=${{ secrets.EMAIL_ADDRESS }}"\
-        -var "postgresql_admin_password=${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}"
+        terraform apply -auto-approve -input=false

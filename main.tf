@@ -104,6 +104,6 @@ module "prod_postgres" {
 
   depends_on = [
     module.prod_networking,
-    azure_rm_resource_group.tarot_cloud_rg["prod"]
+    azurerm_resource_group.tarot_cloud_rg["prod"]
   ]
 }

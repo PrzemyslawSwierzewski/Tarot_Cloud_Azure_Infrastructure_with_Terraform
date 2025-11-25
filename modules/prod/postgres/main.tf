@@ -19,8 +19,8 @@ resource "azurerm_postgresql_flexible_server" "tarot_postgresql_server" {
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "admin_firewall_rule" {
-  name                = "home_office"
-  server_id         = azurerm_postgresql_flexible_server.tarot_postgresql_server.id
-  start_ip_address    = var.my_public_ip_address
-  end_ip_address      = var.my_public_ip_address
+  name             = "home_office"
+  server_id        = azurerm_postgresql_flexible_server.tarot_postgresql_server.id
+  start_ip_address = var.my_public_ip_address
+  end_ip_address   = var.my_public_ip_address
 }

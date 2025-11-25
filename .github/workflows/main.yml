@@ -60,7 +60,7 @@ jobs:
         terraform plan -input=false \
         -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" \
         -var "owner_email_address=${{ secrets.EMAIL_ADDRESS }}"\
-        =var "postgresql_admin_password=${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}"
+        -var "postgresql_admin_password=${{ secrets.POSTGRESQL_ADMIN_PASSWORD }}"
 
     - name: Terraform Apply
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'

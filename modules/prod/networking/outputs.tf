@@ -25,7 +25,3 @@ output "backend_pool" {
 output "private_dns_zone" {
   value = azurerm_private_dns_zone.dns_zone_for_postgresql_server
 }
-
-output "private_dns_zone_id" {
-  value = azurerm_private_dns_zone.dns_zone_for_postgresql_server.id
-}

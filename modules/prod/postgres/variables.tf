@@ -12,11 +12,6 @@ variable "subnet_id" {
   description = "The subnet ID where the PostgreSQL server will be deployed"
 }
 
-variable "private_dns_zone" {
-  type        = string
-  description = "The ID of the private DNS zone for PostgreSQL"
-}
-
 variable "postgresql_admin_password" {
   type        = string
   description = "The administrator password for the PostgreSQL server"

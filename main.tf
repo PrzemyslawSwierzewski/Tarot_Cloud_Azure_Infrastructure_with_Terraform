@@ -99,7 +99,6 @@ module "prod_postgres" {
   rg_location               = local.rg_location
   subnet_id                 = module.prod_networking.tarot_cloud_subnet_ids[0]
   postgresql_admin_password = var.postgresql_admin_password
-  private_dns_zone          = module.prod_networking.private_dns_zone
   my_public_ip_address      = var.my_public_ip_address
   private_dns_zone_id       = module.prod_networking.private_dns_zone_id
 

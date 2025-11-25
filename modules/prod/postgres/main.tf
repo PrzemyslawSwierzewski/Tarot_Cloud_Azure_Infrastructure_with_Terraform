@@ -14,8 +14,6 @@ resource "azurerm_postgresql_flexible_server" "tarot_postgresql_server" {
   storage_tier = "P4"
 
   sku_name   = "B_Standard_B2s"
-  depends_on = [var.private_dns_zone]
-
 }
 
 resource "azurerm_postgresql_flexible_server_firewall_rule" "admin_firewall_rule" {

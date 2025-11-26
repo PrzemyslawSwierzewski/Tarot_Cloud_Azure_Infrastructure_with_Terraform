@@ -24,6 +24,6 @@ resource "azurerm_network_security_group" "tarot_cloud_nsg" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "tarot_cloud_assoc" {
-  subnet_id                 = var.subnets[0]
+  subnet_id                 = var.vmss_subnet_id
   network_security_group_id = azurerm_network_security_group.tarot_cloud_nsg.id
 }

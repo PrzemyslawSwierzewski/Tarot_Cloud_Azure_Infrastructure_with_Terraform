@@ -7,7 +7,7 @@ variable "rg_location" {
   description = "The Azure region for the resources"
 }
 
-variable "subnet_id" {
+variable "postgres_subnet_id" {
   type        = string
   description = "The subnet ID where the PostgreSQL server will be deployed"
 }

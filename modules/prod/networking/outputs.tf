@@ -6,16 +6,12 @@ output "tarot_cloud_public_ip" {
   value = [azurerm_public_ip.tarot_cloud_public_ip.ip_address]
 }
 
-output "tarot_cloud_subnet_ids" {
-  value = [azurerm_subnet.tarot_cloud_subnet.id]
+output "vmss_subnet_id" {
+  value = azurerm_subnet.vmss_subnet.id
 }
 
 output "vnets" {
   value = [azurerm_virtual_network.tarot_cloud_vnet.id]
-}
-
-output "subnet" {
-  value = azurerm_subnet.tarot_cloud_subnet.id
 }
 
 output "backend_pool" {
@@ -24,4 +20,8 @@ output "backend_pool" {
 
 output "private_dns_zone_id" {
   value = azurerm_private_dns_zone.dns_zone_for_postgresql_server.id
+}
+
+output "postgres_subnet" {
+  value = azurerm_subnet.postgres_subnet.id
 }

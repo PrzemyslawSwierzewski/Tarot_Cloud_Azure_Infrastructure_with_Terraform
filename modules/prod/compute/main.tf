@@ -32,7 +32,7 @@ resource "azurerm_linux_virtual_machine_scale_set" "tarot_cloud_linux_vmss" {
     ip_configuration {
       name                                   = "internal"
       primary                                = true
-      subnet_id                              = var.subnet_id
+      subnet_id                              = var.vmss_subnet_id
       load_balancer_backend_address_pool_ids = var.backend_pool_ids
     }
   }
@@ -80,7 +80,7 @@ resource "azurerm_monitor_autoscale_setting" "vmss_autoscale" {
         time_aggregation   = "Average"
         operator           = "GreaterThan"
         threshold          = 75
-        metric_namespace   = "microsoft.compute/virtualmachinescalesets"
+        metric_namespace   = "microsoft.compute/virtualMachineScaleSets"
 
       }
 

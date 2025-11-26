@@ -7,7 +7,7 @@ variable "nsg_name" {
 variable "environment" {
   type        = string
   description = "Deployment environment (development/production)"
-  default     = "Production"
+  default     = "production"
 }
 
 variable "tarot_cloud_rg_name" {
@@ -20,14 +20,9 @@ variable "rg_location" {
   description = "Azure region for the resources"
 }
 
-variable "subnets" {
-  type        = list(string)
+variable "vmss_subnet_id" {
+  type        = string
   description = "List of subnet IDs to associate with the NSG"
-}
-
-variable "vnets" {
-  type        = list(string)
-  description = "List of VNet IDs (optional, for reference)"
 }
 
 variable "my_public_ip_address" {

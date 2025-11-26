@@ -9,11 +9,26 @@ resource "azurerm_virtual_network" "tarot_cloud_vnet" {
   }
 }
 
-resource "azurerm_subnet" "tarot_cloud_subnet" {
-  name                 = "${local.tarot_cloud_subnet_name}-${local.environment}"
+resource "azurerm_subnet" "vmss_subnet" {
+  name                 = "${local.vmss_subnet_name}-${local.environment}"
   resource_group_name  = var.tarot_cloud_rg_name
   virtual_network_name = azurerm_virtual_network.tarot_cloud_vnet.name
-  address_prefixes     = [local.vnet.vnet1.subnet_prefix]
+  address_prefixes     = [local.vnet.vnet1.subnet_prefix_vmss]
+}
+
+resource "azurerm_subnet" "postgres_subnet" {
+  name                 = "${local.postgres_subnet_name}-${local.environment}"
+  resource_group_name  = var.tarot_cloud_rg_name
+  virtual_network_name = azurerm_virtual_network.tarot_cloud_vnet.name
+  address_prefixes     = [local.vnet.vnet1.subnet_prefix_postgres]
+
+  delegation {
+    name = "postgresqldelegation"
+    service_delegation {
+      name = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
 }
 
 resource "azurerm_public_ip" "tarot_cloud_public_ip" {
@@ -75,5 +90,5 @@ resource "azurerm_private_dns_zone_virtual_network_link" "postgres_dns_zone_link
   private_dns_zone_name = azurerm_private_dns_zone.dns_zone_for_postgresql_server.name
   virtual_network_id    = azurerm_virtual_network.tarot_cloud_vnet.id
   resource_group_name   = var.tarot_cloud_rg_name
-  depends_on            = [azurerm_subnet.tarot_cloud_subnet]
+  depends_on            = [azurerm_subnet.postgres_subnet]
 }

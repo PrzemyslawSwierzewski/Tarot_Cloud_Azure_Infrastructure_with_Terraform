@@ -32,7 +32,7 @@ variable "type_handler_version" {
   default     = "1.13"
 }
 
-variable "subnet_id" {
+variable "vmss_subnet_id" {
   type        = string
   description = "The subnet IDs for the virtual machines"
 }

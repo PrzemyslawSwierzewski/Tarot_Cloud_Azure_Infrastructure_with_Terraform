@@ -13,11 +13,6 @@ variable "subnets" {
   description = "List of subnet IDs to attach NSGs"
 }
 
-variable "vnets" {
-  type        = list(string)
-  description = "List of virtual network IDs"
-}
-
 variable "my_public_ip_address" {
   type        = string
   description = "Your public IP address for SSH access"

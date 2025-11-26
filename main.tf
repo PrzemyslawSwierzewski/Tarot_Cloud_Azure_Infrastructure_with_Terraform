@@ -57,7 +57,7 @@ module "prod_compute" {
   rg_location         = local.rg_location
   //tarot_cloud_nic     = module.prod_networking.tarot_cloud_nic
   ssh_public_key      = var.ssh_public_key
-  vmss_subnet_id           = module.prod_networking.vmss_subnet_id
+  vmss_subnet_id      = module.prod_networking.vmss_subnet_id
   backend_pool_ids    = module.prod_networking.backend_pool
   owner_email_address = var.owner_email_address
 
@@ -69,7 +69,7 @@ module "prod_security" {
   source               = "./modules/prod/security"
   tarot_cloud_rg_name  = local.resource_group_name_prod
   rg_location          = local.rg_location
-  vmss_subnet_id              = module.prod_networking.vmss_subnet_id
+  vmss_subnet_id       = module.prod_networking.vmss_subnet_id
   my_public_ip_address = var.my_public_ip_address
 
   depends_on = [module.prod_networking]
@@ -95,7 +95,7 @@ module "prod_postgres" {
   source                    = "./modules/prod/postgres"
   tarot_cloud_rg_name       = local.resource_group_name_prod
   rg_location               = local.rg_location
-  postgres_subnet_id                 = module.prod_networking.postgres_subnet
+  postgres_subnet_id        = module.prod_networking.postgres_subnet
   postgresql_admin_password = var.postgresql_admin_password
   my_public_ip_address      = var.my_public_ip_address
   private_dns_zone_id       = module.prod_networking.private_dns_zone_id

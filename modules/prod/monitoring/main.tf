@@ -146,11 +146,11 @@ resource "azurerm_monitor_metric_alert" "memory_alert" {
   window_size         = local.window_size_of_metric_alerts
 
   criteria {
-    metric_namespace       = "Microsoft.Compute/virtualMachineScaleSets"
-    metric_name            = "Available Memory Bytes"
-    aggregation            = "Average"
-    operator               = "LessThan"
-    threshold              = 0.1 * var.vm_memory_bytes
+    metric_namespace = "Microsoft.Compute/virtualMachineScaleSets"
+    metric_name      = "Available Memory Bytes"
+    aggregation      = "Average"
+    operator         = "LessThan"
+    threshold        = 0.1 * var.vm_memory_bytes
   }
 
   action {

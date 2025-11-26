@@ -17,7 +17,7 @@ variable "vmss_name" {
 variable "environment" {
   type        = string
   description = "Deployment environment (dev/prod)"
-  default     = "Production"
+  default     = "production"
 }
 
 variable "owner_email_address" {
@@ -28,7 +28,7 @@ variable "owner_email_address" {
 variable "vm_memory_bytes" {
   type        = number
   description = "Total prod VM memory in bytes (for memory alert threshold)"
-  default     = 4000000000
+  default     = 8000000000
 }
 
 variable "alert_severity_cpu" {

@@ -60,6 +60,7 @@ module "prod_compute" {
   vmss_subnet_id      = module.prod_networking.vmss_subnet_id
   backend_pool_ids    = module.prod_networking.backend_pool
   owner_email_address = var.owner_email_address
+  key_vault_name      = module.prod_keyvault.key_vault_name
 
   depends_on = [module.prod_networking]
 }
@@ -102,6 +103,20 @@ module "prod_postgres" {
 
   depends_on = [
     module.prod_networking,
+    azurerm_resource_group.tarot_cloud_rg["prod"]
+  ]
+}
+
+# Prod-only Key Vault Module
+module "prod_keyvault" {
+  source                    = "./modules/prod/keyvault"
+  tarot_cloud_rg_name       = local.resource_group_name_prod
+  rg_location               = local.rg_location
+  postgresql_admin_password = var.postgresql_admin_password
+  vmss_identity_object_id   = module.prod_compute.vmss_identity_object_id
+
+  depends_on = [
+    module.prod_compute,
     azurerm_resource_group.tarot_cloud_rg["prod"]
   ]
 }

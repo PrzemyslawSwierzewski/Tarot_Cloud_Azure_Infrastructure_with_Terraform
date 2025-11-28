@@ -3,7 +3,7 @@ locals {
   rg_location              = "Canada Central"
   resource_group_name_prod = "Tarot-cloud-${local.prod_environment}"
   prod_environment         = "production"
-  dev_environment          = "Development"
+  dev_environment          = "development"
   environments = {
     dev = {
       rg_name    = local.resource_group_name_dev

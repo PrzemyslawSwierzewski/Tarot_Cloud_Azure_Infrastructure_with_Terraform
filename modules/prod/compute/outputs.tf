@@ -10,5 +10,5 @@ output "vmss_name" {
 
 output "vmss_identity_object_id" {
   description = "The object ID of the VMSS managed identity."
-  value       = azurerm_linux_virtual_machine_scale_set.tarot_cloud_linux_vmss.identity.principal_id
+  value       = azurerm_linux_virtual_machine_scale_set.tarot_cloud_linux_vmss.identity[0].principal_id
 }

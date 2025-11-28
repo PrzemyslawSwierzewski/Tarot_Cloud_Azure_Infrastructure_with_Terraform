@@ -16,4 +16,5 @@ locals {
       env_tag    = local.prod_environment
     }
   }
+  key_vault_name = "kv-prod-${random_string.kv_suffix.result}"
 }

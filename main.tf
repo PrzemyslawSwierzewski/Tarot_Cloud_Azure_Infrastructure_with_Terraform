@@ -67,7 +67,7 @@ module "prod_compute" {
   vmss_subnet_id      = module.prod_networking.vmss_subnet_id
   backend_pool_ids    = module.prod_networking.backend_pool
   owner_email_address = var.owner_email_address
-  key_vault_name      = var.key_vault_name
+  key_vault_name      = local.key_vault_name
 
   depends_on = [module.prod_networking]
 }
@@ -121,7 +121,7 @@ module "prod_keyvault" {
   rg_location               = local.rg_location
   postgresql_admin_password = var.postgresql_admin_password
   vmss_identity_object_id   = module.prod_compute.vmss_identity_object_id
-  key_vault_name           = var.key_vault_name
+  key_vault_name            = local.key_vault_name
 
   depends_on = [
     module.prod_compute,

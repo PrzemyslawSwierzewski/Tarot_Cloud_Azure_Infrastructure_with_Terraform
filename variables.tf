@@ -20,9 +20,3 @@ variable "postgresql_admin_password" {
   description = "The password for the PostgreSQL administrator"
   sensitive   = true
 }
-
-variable "key_vault_name" {
-  type        = string
-  description = "The name of the Key Vault to be created"
-  default = "kv-${local.prod_environment}-${random_string.kv_suffix.result}"
-}

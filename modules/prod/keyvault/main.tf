@@ -1,13 +1,7 @@
 data "azurerm_client_config" "current" {}
 
-resource "random_string" "kv_suffix" {
-  length  = 8
-  special = false
-  upper   = false
-}
-
 resource "azurerm_key_vault" "postgres-keyvault" {
-  name                       = "kv-${var.environment}-${random_string.kv_suffix.result}"
+  name                       = var.key_vault_name
   location                   = var.rg_location
   resource_group_name        = var.tarot_cloud_rg_name
   tenant_id                  = data.azurerm_client_config.current.tenant_id

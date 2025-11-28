@@ -24,3 +24,8 @@ variable "environment" {
   description = "Deployment environment (dev/prod)"
   default     = "production"
 }
+
+variable "key_vault_name" {
+  type        = string
+  description = "The name of the Key Vault to be created"
+}

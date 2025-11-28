@@ -1,3 +1,10 @@
+# To break the cycle I have moved the random_string resource here, it will be passed to the variable and next to compute and keyvault modules
+resource "random_string" "kv_suffix" {
+  length  = 8
+  special = false
+  upper   = false
+}
+
 # Create resource groups for all environments
 resource "azurerm_resource_group" "tarot_cloud_rg" {
   for_each = local.environments
@@ -60,7 +67,7 @@ module "prod_compute" {
   vmss_subnet_id      = module.prod_networking.vmss_subnet_id
   backend_pool_ids    = module.prod_networking.backend_pool
   owner_email_address = var.owner_email_address
-  key_vault_name      = module.prod_keyvault.key_vault_name
+  key_vault_name      = var.key_vault_name
 
   depends_on = [module.prod_networking]
 }
@@ -114,6 +121,7 @@ module "prod_keyvault" {
   rg_location               = local.rg_location
   postgresql_admin_password = var.postgresql_admin_password
   vmss_identity_object_id   = module.prod_compute.vmss_identity_object_id
+  key_vault_name           = var.key_vault_name
 
   depends_on = [
     module.prod_compute,

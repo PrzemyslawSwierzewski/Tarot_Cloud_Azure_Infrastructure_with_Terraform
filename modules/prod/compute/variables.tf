@@ -29,7 +29,7 @@ variable "ssh_public_key" {
 variable "type_handler_version" {
   type        = string
   description = "The version of the VM extension handler"
-  default     = "1.13"
+  default     = "1.38"
 }
 
 variable "vmss_subnet_id" {
@@ -45,4 +45,9 @@ variable "backend_pool_ids" {
 variable "owner_email_address" {
   type        = string
   description = "Email address of the subscription owner"
+}
+
+variable "key_vault_name" {
+  type        = string
+  description = "The name of the Key Vault to fetch secrets from."
 }

@@ -6,7 +6,9 @@ resource "azurerm_linux_virtual_machine_scale_set" "tarot_cloud_linux_vmss" {
   instances           = local.vmss_instance_count
   admin_username      = var.admin_username
 
-  custom_data = base64encode(file("${path.module}/cloud-init.tpl"))
+  custom_data = base64encode(templatefile("${path.module}/cloud-init.tpl", {
+    key_vault_name = var.key_vault_name
+  }))
 
   admin_ssh_key {
     username   = var.admin_username

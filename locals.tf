@@ -3,7 +3,7 @@ locals {
   rg_location              = "Canada Central"
   resource_group_name_prod = "Tarot-cloud-${local.prod_environment}"
   prod_environment         = "production"
-  dev_environment          = "Development"
+  dev_environment          = "development"
   environments = {
     dev = {
       rg_name    = local.resource_group_name_dev
@@ -16,4 +16,5 @@ locals {
       env_tag    = local.prod_environment
     }
   }
+  key_vault_name = "kv-prod-${random_string.kv_suffix.result}"
 }

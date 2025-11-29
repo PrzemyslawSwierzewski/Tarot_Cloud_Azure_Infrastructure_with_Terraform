@@ -33,7 +33,7 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
 
   data_sources {
     syslog {
-      name           = "syslog-source"
+      name = "syslog-source"
 
       facility_names = [
         "*"

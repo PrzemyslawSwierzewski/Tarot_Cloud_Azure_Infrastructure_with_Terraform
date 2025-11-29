@@ -36,17 +36,11 @@ resource "azurerm_monitor_data_collection_rule" "dcr" {
       name           = "syslog-source"
 
       facility_names = [
-        "LOG_AUTH",
-        "LOG_DAEMON",
-        "LOG_SYSLOG"
+        "*"
       ]
 
       log_levels = [
-        "LOG_WARNING",
-        "LOG_ERROR",
-        "LOG_CRITICAL",
-        "LOG_ALERT",
-        "LOG_EMERGENCY"
+        "*"
       ]
 
       streams = ["Microsoft-Syslog"]

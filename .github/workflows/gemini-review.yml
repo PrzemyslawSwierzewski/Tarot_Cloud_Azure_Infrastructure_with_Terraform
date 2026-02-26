@@ -46,7 +46,10 @@ jobs:
 
       - name: Set up GCP credentials and install review extension
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/gcp-key.json
+          # Write the JSON key from the secret into a file
+          echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > $HOME/gcp-key.json
+
+          # Set environment variables for Vertex AI
           export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json
           export GOOGLE_CLOUD_PROJECT=$(jq -r '.project_id' $HOME/gcp-key.json)
           export GOOGLE_CLOUD_LOCATION=global

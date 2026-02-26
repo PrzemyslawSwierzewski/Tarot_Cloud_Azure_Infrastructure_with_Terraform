@@ -32,16 +32,16 @@ jobs:
       - name: Authenticate gh
         run: echo "${{ secrets.TFSEC_GITHUB_TOKEN }}" | gh auth login --with-token
 
-      - name: Install Gemini CLI
-        run: bash .github/workflows/install-gemini.sh
-
-      - name: Install Review Extension
+      - name: Install Gemini CLI and run review
         run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --user gemini-cli
+          export PATH="$HOME/.local/bin:$PATH"
+
+          echo "Installing Review Extension..."
           echo "y" | gemini extensions install \
             git@github.com:PrzemyslawSwierzewski/tarot-gemini-review-extension.git \
             --ref v1.0.0
 
-      - name: Run Review
-        run: |
-          gemini -y /pr:review:terraform \
-            "${{ github.event.pull_request.number }}"
+          echo "Running Gemini review..."
+          gemini -y /pr:review:terraform "${{ github.event.pull_request.number }}"

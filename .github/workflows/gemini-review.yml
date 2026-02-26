@@ -34,24 +34,27 @@ jobs:
       - name: Install official Gemini CLI
         run: npm install -g @google/gemini-cli
 
-      - name: Set up GCP and Install Extension
+      - name: Set up GCP Environment
         shell: bash
         run: |
-          # 1. Create the key file
           echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > $HOME/gcp-key.json
-          
-          # 2. Extract Project ID
           PROJECT_ID=$(jq -r '.project_id' $HOME/gcp-key.json)
           
-          # 3. Persist variables to GITHUB_ENV for subsequent steps
+          # These will be available in the NEXT steps
           echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json" >> $GITHUB_ENV
           echo "GOOGLE_CLOUD_PROJECT=$PROJECT_ID" >> $GITHUB_ENV
           echo "GOOGLE_CLOUD_LOCATION=global" >> $GITHUB_ENV
+          
+          # Also set them for THIS step's sub-processes just in case
+          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json
+          export GOOGLE_CLOUD_PROJECT=$PROJECT_ID
+          export GOOGLE_CLOUD_LOCATION=global
 
-          # 4. Install the Gemini extension
+      - name: Install Gemini Extension
+        run: |
+          # Now the environment is fully loaded and Gemini can see the Project ID
           echo "y" | gemini extensions install https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
 
       - name: Run Terraform Review
         run: |
-          # The CLI will now see the credentials and project ID set in the previous step
           gemini -y /pr:review:terraform "${{ github.event.pull_request.number }}"

@@ -18,8 +18,7 @@ jobs:
 
     env:
       GOOGLE_GENAI_USE_VERTEXAI: true
-      GOOGLE_CLOUD_LOCATION: global
-      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      GH_TOKEN: ${{ secrets.TFSEC_GITHUB_TOKEN }}
 
     steps:
       - name: Checkout
@@ -27,39 +26,32 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install gh CLI
-        run: sudo apt install gh -y
-
-      - name: Authenticate gh
-        run: echo "${{ secrets.TFSEC_GITHUB_TOKEN }}" | gh auth login --with-token
-
-      - name: Setup Node.js & npm
-        uses: actions/setup-node@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
 
       - name: Install official Gemini CLI
         run: npm install -g @google/gemini-cli
 
-      - name: Verify Gemini CLI
-        run: gemini --version
-
-      - name: Set up GCP credentials and install local Gemini extension
-        run: |
-          # Write the JSON key from the secret into a file
-          echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > $HOME/gcp-key.json
-
-          # Set environment variables for Vertex AI
-          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json
-          export GOOGLE_CLOUD_PROJECT=$(jq -r '.project_id' $HOME/gcp-key.json)
-          export GOOGLE_CLOUD_LOCATION=global
-
-          echo "Using GCP Project: $GOOGLE_CLOUD_PROJECT"
-
-          # Install the local Gemini extension
-          echo "y" | gemini extensions install https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
+      - name: Set up GCP and Install Extension
         shell: bash
+        run: |
+          # 1. Create the key file
+          echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > $HOME/gcp-key.json
+          
+          # 2. Extract Project ID
+          PROJECT_ID=$(jq -r '.project_id' $HOME/gcp-key.json)
+          
+          # 3. Persist variables to GITHUB_ENV for subsequent steps
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json" >> $GITHUB_ENV
+          echo "GOOGLE_CLOUD_PROJECT=$PROJECT_ID" >> $GITHUB_ENV
+          echo "GOOGLE_CLOUD_LOCATION=global" >> $GITHUB_ENV
+
+          # 4. Install the Gemini extension
+          echo "y" | gemini extensions install https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
 
       - name: Run Terraform Review
         run: |
+          # The CLI will now see the credentials and project ID set in the previous step
           gemini -y /pr:review:terraform "${{ github.event.pull_request.number }}"

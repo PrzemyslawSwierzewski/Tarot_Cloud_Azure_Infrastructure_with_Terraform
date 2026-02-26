@@ -44,7 +44,7 @@ jobs:
       - name: Verify Gemini CLI
         run: gemini --version
 
-      - name: Set up GCP credentials and install review extension
+      - name: Set up GCP credentials and install local Gemini extension
         run: |
           # Write the JSON key from the secret into a file
           echo '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}' > $HOME/gcp-key.json
@@ -60,11 +60,6 @@ jobs:
           echo "y" | gemini extensions install ./tarot-gemini-review-extension
         shell: bash
 
-      - name: Install Review Extension
-        run: |
-          echo "y" | gemini extensions install \
-            https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
-
-      - name: Run Review
+      - name: Run Terraform Review
         run: |
           gemini -y /pr:review:terraform "${{ github.event.pull_request.number }}"

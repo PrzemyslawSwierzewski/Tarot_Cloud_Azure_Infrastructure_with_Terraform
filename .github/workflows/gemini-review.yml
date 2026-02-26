@@ -57,7 +57,7 @@ jobs:
           echo "Using GCP Project: $GOOGLE_CLOUD_PROJECT"
 
           # Install the local Gemini extension
-          echo "y" | gemini extensions install ./tarot-gemini-review-extension
+          echo "y" | gemini extensions install https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
         shell: bash
 
       - name: Run Terraform Review

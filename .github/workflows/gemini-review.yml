@@ -33,9 +33,7 @@ jobs:
         run: echo "${{ secrets.TFSEC_GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: Install Gemini CLI
-        run: |
-          chmod +x ./.github/workflows/install-gemini.sh
-          ./.github/workflows/install-gemini.sh
+        run: bash .github/workflows/install-gemini.sh
 
       - name: Install Review Extension
         run: |

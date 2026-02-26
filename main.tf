@@ -115,16 +115,17 @@ module "prod_postgres" {
 }
 
 # Prod-only Key Vault Module
-module "prod_keyvault" {
-  source                    = "./modules/prod/keyvault"
-  tarot_cloud_rg_name       = local.resource_group_name_prod
-  rg_location               = local.rg_location
-  postgresql_admin_password = var.postgresql_admin_password
-  vmss_identity_object_id   = module.prod_compute.vmss_identity_object_id
-  key_vault_name            = local.key_vault_name
-
-  depends_on = [
-    module.prod_compute,
-    azurerm_resource_group.tarot_cloud_rg["prod"]
-  ]
-}
+#module "prod_keyvault" {
+#  source                    = "./modules/prod/keyvault"
+#  tarot_cloud_rg_name       = local.resource_group_name_prod
+#  rg_location               = local.rg_location
+#  postgresql_admin_password = var.postgresql_admin_password
+#  vmss_identity_object_id   = module.prod_compute.vmss_identity_object_id
+#  key_vault_name            = local.key_vault_name
+#
+#  depends_on = [
+#    module.prod_compute,
+#    azurerm_resource_group.tarot_cloud_rg["prod"]
+#  ]
+#}
+# Testing of a AI review workflow

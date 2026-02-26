@@ -1,0 +1,49 @@
+name: Gemini Terraform Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - '**/*.tf'
+      - '**/*.tfvars'
+
+jobs:
+  review:
+    if: github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    env:
+      GOOGLE_GENAI_USE_VERTEXAI: true
+      GOOGLE_CLOUD_LOCATION: global
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gh CLI
+        run: sudo apt install gh -y
+
+      - name: Authenticate gh
+        run: echo "${{ secrets.TFSEC_GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Install Gemini CLI
+        run: |
+          chmod +x ./install-gemini.sh
+          ./install-gemini.sh
+
+      - name: Install Review Extension
+        run: |
+          echo "y" | gemini extensions install \
+            git@github.com:PrzemyslawSwierzewski/tarot-gemini-review-extension.git \
+            --ref v1.0.0
+
+      - name: Run Review
+        run: |
+          gemini -y /pr:review:terraform \
+            "${{ github.event.pull_request.number }}"

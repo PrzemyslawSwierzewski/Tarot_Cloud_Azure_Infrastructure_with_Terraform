@@ -1,4 +1,3 @@
-#test
 # To break the cycle I have moved the random_string resource here, it will be passed to the variable and next to compute and keyvault modules
 resource "random_string" "kv_suffix" {
   length  = 8

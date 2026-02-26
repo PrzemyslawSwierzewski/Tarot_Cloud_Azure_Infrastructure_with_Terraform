@@ -52,8 +52,11 @@ jobs:
           echo "Using GCP Project: $GOOGLE_CLOUD_PROJECT"
         shell: bash
 
-      - name: Make review script executable
-        run: chmod +x tarot-gemini-review-extension/review.sh
+      - name: Install Review Extension
+        run: |
+          echo "y" | gemini extensions install \
+            https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git \
+            --method git
 
       - name: Run Review
         run: |

@@ -55,8 +55,7 @@ jobs:
       - name: Install Review Extension
         run: |
           echo "y" | gemini extensions install \
-            https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git \
-            --method git
+            https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git
 
       - name: Run Review
         run: |

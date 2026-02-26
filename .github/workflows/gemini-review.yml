@@ -19,6 +19,7 @@ jobs:
     env:
       GOOGLE_GENAI_USE_VERTEXAI: true
       GOOGLE_CLOUD_LOCATION: global
+      GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
     steps:
       - name: Checkout

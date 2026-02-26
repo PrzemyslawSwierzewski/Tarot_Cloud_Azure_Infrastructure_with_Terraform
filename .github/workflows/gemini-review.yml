@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "y" | gemini extensions install \
             https://github.com/PrzemyslawSwierzewski/tarot-gemini-review-extension.git \
-            --ref v1.0.0
+            --ref main
 
       - name: Run Review
         run: |

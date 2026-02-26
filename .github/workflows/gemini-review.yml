@@ -43,6 +43,17 @@ jobs:
       - name: Verify Gemini CLI
         run: gemini --version
 
+      - name: Set up GCP credentials for Vertex AI
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}" > $HOME/gcp-key.json
+          
+          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcp-key.json
+          
+          export GOOGLE_CLOUD_PROJECT=$(jq -r '.project_id' $HOME/gcp-key.json)
+          
+          echo "Using GCP Project: $GOOGLE_CLOUD_PROJECT"
+        shell: bash
+
       - name: Install Review Extension
         run: |
           echo "y" | gemini extensions install \

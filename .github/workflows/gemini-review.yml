@@ -34,8 +34,8 @@ jobs:
 
       - name: Install Gemini CLI
         run: |
-          chmod +x ./install-gemini.sh
-          ./install-gemini.sh
+          chmod +x ./.github/workflows/install-gemini.sh
+          ./.github/workflows/install-gemini.sh
 
       - name: Install Review Extension
         run: |
